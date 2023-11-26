@@ -1,0 +1,46 @@
+.banner {
+  background:url("../img/bannerimg2.jpg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  /* padding: 20px; */
+}
+
+.banner h1 {
+  font-size: 3rem;
+  color: #a79292;
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.banner button {
+  background-color: #fff;
+  color: #ef9d10;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.banner button:hover {
+  background-color: #ef9d10;
+  color: #fff;
+}
+
+.banner-scrolled {
+  /* position: fixed; */
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin-left: 10%; /* Add margin to the left side */
+  margin-right: 10%;
+}

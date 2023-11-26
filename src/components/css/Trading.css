@@ -1,0 +1,8 @@
+.Tradecontainer{
+    display: flex;
+}
+
+.Stockele{
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,16 @@
+.main-content {
+  padding-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    /* height: 100rem; */
+  }
+  
+    .card-content_banner{
+      position: relative;
+      top: -5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+    }

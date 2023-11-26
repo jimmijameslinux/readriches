@@ -1,0 +1,12 @@
+.aside {
+    margin-top: 0rem;
+    position: sticky;
+    top: 5rem;
+    left: 1rem;
+    margin-bottom: 0.5rem;
+    width: 17rem;
+    height: 1%;
+    /* background-color: #fff; Set the background color as needed */
+    /* padding: 20px; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); Optional: Add a box shadow for styling */
+  }
