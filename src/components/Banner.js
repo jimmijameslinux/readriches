@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../components/css/Banner.css';
+import bull from '../components/img/bull.png';
 
 const Banner = () => {
   // const [scrolling, setScrolling] = useState(false);
@@ -20,7 +21,7 @@ const Banner = () => {
   //   };
 
   //   window.addEventListener('scroll', handleScroll);
-    
+
 
   //   return () => {
   //     window.removeEventListener('scroll', handleScroll);
@@ -37,8 +38,42 @@ const Banner = () => {
       }}
     >
       <div className="card-content_banner">
-        <h1>Welcome to Our Website</h1>
-        <button>Learn More</button>
+        <h1>Read Riches is...</h1>
+        <h2>Pure Love of Finance Creativity</h2>
+        <div className='btns'>
+          <button>Join Us</button>
+          <button>Explore</button>
+        </div>
+        {/* five book imsges */}
+        <div className="book-images">
+          <div className="book-image">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51a3jyjX5EL._SX331_BO1,204,203,200_.jpg" alt="book" />
+          </div>
+          <div className="book-image">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51a3jyjX5EL._SX331_BO1,204,203,200_.jpg" alt="book" />
+          </div>
+          <div className="book-image">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51a3jyjX5EL._SX331_BO1,204,203,200_.jpg" alt="book" />
+          </div>
+          <div className="book-image">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51a3jyjX5EL._SX331_BO1,204,203,200_.jpg" alt="book" />
+          </div>
+          <div className="book-image">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51a3jyjX5EL._SX331_BO1,204,203,200_.jpg" alt="book" />
+          </div>
+        </div>
+      </div>
+      <div className="card-image_banner" style={{width:"100rem"}}>
+        <img src={bull} width={"100%"} alt="bull" style={{
+          position: "relative",
+          left: "5rem"
+        }} />
+      </div>
+      <div className="banneryellow" >
+        <div>
+        <p className='p1'>EXPERIENCE</p>
+        <p className='p2'>EXCLUSITIVITY</p>
+        </div>
       </div>
     </div>
   );

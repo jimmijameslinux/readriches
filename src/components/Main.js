@@ -7,26 +7,27 @@ import './css/Main.css';
 import Banner from './Banner';
 import News from './News';
 import "../components/css/Aside.css";
-import Img from '../components/img/img1.webp'
-import indigo from '../components/img/indigo2.png';
-import ihcl from '../components/img/ihcl2.png';
-import vedanta from '../components/img/vedanta2.png';
-import mahindra from '../components/img/mahindra.png';
-import wipro from '../components/img/wipro2.png';
-import itc from '../components/img/itc.png';
-import diamines from '../components/img/diamines2.png';
-import allsec from '../components/img/allsec.png';
-import rubfila from '../components/img/rubfila.png';
-import gandhi from '../components/img/gandhi2.png';
+// import Img from '../components/img/img1.webp'
+// import indigo from '../components/img/indigo2.png';
+// import ihcl from '../components/img/ihcl2.png';
+// import vedanta from '../components/img/vedanta2.png';
+// import mahindra from '../components/img/mahindra.png';
+// import wipro from '../components/img/wipro2.png';
+// import itc from '../components/img/itc.png';
+// import diamines from '../components/img/diamines2.png';
+// import allsec from '../components/img/allsec.png';
+// import rubfila from '../components/img/rubfila.png';
+// import gandhi from '../components/img/gandhi2.png';
 
 
 
-const Main = ({getCarddata,carddata}) => {
+const Main = ({getCarddata,carddata,reload}) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [newsItems, setNewsItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [length, setLength] = useState(true);
+
 
   // console.log(carddata);
 // ----------------------------------------------------------
@@ -78,18 +79,18 @@ const fetchNews = async () => {
   }
 };
 
-const cardData = [
-  { company_name: 'Indigo Airlines', title: 'Unmasking the Risks', category: 'Aviation', img: Img, img2: indigo,cardcolorprimary:'#009BFF', cardcolorsecondary:'#8300FF'},
-  { company_name: 'Taj Hotels', title:'Decoding the market position',category: 'Hospitality', img: Img, img2: ihcl,cardcolorprimary:'white', cardcolorsecondary:'grey' },
-  { company_name: 'Vedanta',title:'Debt Overload & Unlocking the Value', category: 'Metals & Minerals', img: Img, img2: vedanta,cardcolorprimary:'white', cardcolorsecondary:'green' },
-  { company_name: 'Mahindra',title: 'Navigating Market Turbulence', category: 'Automobile & Ancillaries', img: Img, img2: mahindra,cardcolorprimary:'pink', cardcolorsecondary:'red' },
-  { company_name: 'Wipro',title: 'From Data to Dollars', category: 'IT & Software', img: Img, img2: wipro,cardcolorprimary:'purple', cardcolorsecondary:'orange' },
-  { company_name: 'ITC',title: 'From Strategy to Execution', category: 'FMCG', img: Img, img2: itc,cardcolorprimary:'yellow', cardcolorsecondary:'orange' },
-  { company_name: 'Diamines',title: 'Behind the scenes', category: 'Chemicals', img: Img, img2: diamines,cardcolorprimary:'cyan', cardcolorsecondary:'lime' },
-  { company_name: 'Allsec',title: 'Understanding the operations', category: 'IT & Software', img: Img, img2: allsec,cardcolorprimary:'red', cardcolorsecondary:'brown' },
-  { company_name: 'Rubfila',title: 'Dissecting the strengths & weakness', category: 'Automobile & Ancillaries', img: Img, img2: rubfila,cardcolorprimary:'cyan', cardcolorsecondary:'orange' },
-  { company_name: 'Gandhi Special tubes',title: 'Uncovering the hidden gems', category: 'Capital Goods', img: Img, img2: gandhi,cardcolorprimary:'white', cardcolorsecondary:'blue' },
-];
+// const cardData = [
+//   { company_name: 'Indigo Airlines', title: 'Unmasking the Risks', category: 'Aviation', img: Img, img2: indigo,cardcolorprimary:'#009BFF', cardcolorsecondary:'#8300FF'},
+//   { company_name: 'Taj Hotels', title:'Decoding the market position',category: 'Hospitality', img: Img, img2: ihcl,cardcolorprimary:'white', cardcolorsecondary:'grey' },
+//   { company_name: 'Vedanta',title:'Debt Overload & Unlocking the Value', category: 'Metals & Minerals', img: Img, img2: vedanta,cardcolorprimary:'white', cardcolorsecondary:'green' },
+//   { company_name: 'Mahindra',title: 'Navigating Market Turbulence', category: 'Automobile & Ancillaries', img: Img, img2: mahindra,cardcolorprimary:'pink', cardcolorsecondary:'red' },
+//   { company_name: 'Wipro',title: 'From Data to Dollars', category: 'IT & Software', img: Img, img2: wipro,cardcolorprimary:'purple', cardcolorsecondary:'orange' },
+//   { company_name: 'ITC',title: 'From Strategy to Execution', category: 'FMCG', img: Img, img2: itc,cardcolorprimary:'yellow', cardcolorsecondary:'orange' },
+//   { company_name: 'Diamines',title: 'Behind the scenes', category: 'Chemicals', img: Img, img2: diamines,cardcolorprimary:'cyan', cardcolorsecondary:'lime' },
+//   { company_name: 'Allsec',title: 'Understanding the operations', category: 'IT & Software', img: Img, img2: allsec,cardcolorprimary:'red', cardcolorsecondary:'brown' },
+//   { company_name: 'Rubfila',title: 'Dissecting the strengths & weakness', category: 'Automobile & Ancillaries', img: Img, img2: rubfila,cardcolorprimary:'cyan', cardcolorsecondary:'orange' },
+//   { company_name: 'Gandhi Special tubes',title: 'Uncovering the hidden gems', category: 'Capital Goods', img: Img, img2: gandhi,cardcolorprimary:'white', cardcolorsecondary:'blue' },
+// ];
 
 const filteredCards = selectedCategory === 'All'
   ? carddata
@@ -111,12 +112,12 @@ const combinedFilteredCards = searchFilteredCards(filteredCards);
 
 useEffect(() => {
   // Update the length state based on the length of combinedFilteredCards
-  setLength(combinedFilteredCards.length > 0);
+  setLength(combinedFilteredCards.length > 0)
 }, [combinedFilteredCards]);
 
 useEffect(() => {
   getCarddata();
-}, []);
+}, [reload]);
 return (
   <main>
     <Banner />
@@ -137,6 +138,7 @@ return (
           images2={card.mainimage} 
           primarycolor={card.first_color} 
           secondarycolor={card.second_color}
+          category={card.category}
           />
           ))
           :

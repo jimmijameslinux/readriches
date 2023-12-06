@@ -19,9 +19,9 @@
   padding: 1rem;
   flex-wrap: wrap;
   gap: 1rem;
-  row-gap: 3rem;
+  row-gap: 0rem;
   margin-inline: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 10rem;
 }
 
 .card-content{
@@ -51,12 +51,16 @@
 .card a {
   text-decoration: none;
   color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .card:hover .onhover{
   width: 80px;
   height: 80px;
+  -webkit-mask-image: linear-gradient(180deg,#000,#000 75%,#0000);
 }
+
 
 .companylogo{
   height: 100px;
@@ -70,4 +74,17 @@
 
 .card:hover .card-content{
   transform: translateZ(2rem);
+}
+
+.card:hover{
+  /* height: 500px; */
+}
+
+@media screen and (max-width: 875px) {
+  .card-section{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  row-gap: 5rem;
+  }
 }

@@ -10,3 +10,12 @@
     /* padding: 20px; */
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); Optional: Add a box shadow for styling */
   }
+
+  @media screen and (max-width: 875px) {
+    .aside{
+      left:0;
+      width: auto;
+      padding-inline: 1rem;
+      position: static;
+    }
+  }

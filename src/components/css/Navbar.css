@@ -1,12 +1,14 @@
 .navbar {
   /* Add styles for your navigation bar */
-  color: #fff;
+  /* color: #fff; */
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
   z-index: 2;
+  column-gap: 10rem;
   background-color: transparent;
-  padding-left: 1rem;
+  padding-inline: 1rem;
+  padding-block: 0.2rem;
   text-align: center;
   position: fixed;
   width: 100%;
@@ -43,9 +45,8 @@
 
 
 .navbar-scrolled {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(3px);
   box-shadow: 0px 1px 5px #ef9d10;
-  /* background-color: #fff; */
   color: #333;
   /* Change the background color when scrolled */
 }
@@ -68,7 +69,7 @@
 }
 
 .navbar_top{
-  color: #fff;
+  /* color: #fff; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -119,4 +120,41 @@
 
 .navbar_dash{
   display: none;
+}
+
+.nav-mobile-menu{
+  display: none;
+}
+
+/* Media queries - Responsive design */
+@media  (max-width: 875px) {
+
+  .navbar{
+    justify-content: space-around;
+  background-color: white;
+  }
+  .nav-links{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    top: 4rem;
+    background-color: #ef9d10;
+    color: white;
+    transform: translateX(-100%);
+  }
+
+  .nav-link:hover {
+    color: #000;
+    background-color: white;
+  }
+
+  .nav-links-scrolled {
+    color: white;
+    backdrop-filter: blur(0px);
+}
+
+  .nav-mobile-menu{
+    display: block;
+  }
 }

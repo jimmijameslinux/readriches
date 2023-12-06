@@ -133,5 +133,11 @@
   }
 }
 
+@media screen and (max-width: 875px) {
+  .news-panel{
+    display: none;
+  }
+}
+
 
 

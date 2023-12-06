@@ -6,3 +6,10 @@
     display: flex;
     flex-direction: row;
 }
+
+@media (max-width: 875px){
+    .Tradecontainer{
+        display: none;
+    }
+
+}

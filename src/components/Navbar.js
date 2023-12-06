@@ -61,6 +61,18 @@ const Navbar = () => {
   //     }
   //   }
   // }, []);
+
+  const navLinks = document.querySelector('.nav-links');
+  const Hamburger = () => {
+    if(navLinks.style.transform !== 'translateX(0%)')
+    {
+      navLinks.style.transform = 'translateX(0%)';
+    }
+    else{
+      navLinks.style.transform = 'translateX(100%)';
+    }
+    console.log('clicked');
+  }
   return (
   <>
     <nav className={`navbar ${scrolling ? 'navbar-scrolled' : ''} ${location.pathname !== '/' ? 'navbar-white' : ''} ${location.pathname === '/dashboard' ? 'navbar_dash' : ''} ${location.pathname!=='/'&&'/dashboard'&&'/about'&&'/contact'?'navbar_top':''}`}>
@@ -68,17 +80,20 @@ const Navbar = () => {
       <Logo scrolling={scrolling} />
       <ul className="nav-links nav-links-mobile">
         <li>
-          <Link className={`nav-link ${scrolling ? 'nav-links-scrolled' : ''} ${location.pathname === '/' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/">Home</Link>
+          <Link className={`nav-link nav-links-scrolled ${location.pathname === '/' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/">Home</Link>
         </li>
         <li>
-          <Link className={`nav-link ${scrolling ? 'nav-links-scrolled' : ''} ${location.pathname === '/about' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/about">About Us</Link>
+          <Link className={`nav-link nav-links-scrolled ${location.pathname === '/about' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/about">About Us</Link>
         </li>
         <li>
-          <Link className={`nav-link ${scrolling ? 'nav-links-scrolled' : ''} ${location.pathname === '/contact' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/contact">Contact Us</Link>
+          <Link className={`nav-link nav-links-scrolled ${location.pathname === '/contact' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/contact">Contact Us</Link>
         </li>
       </ul>
       {/* <div id="tv-miniwidget-iframe-container" style={{border:"none",display:`${scrolling?'block':'none'}`}}></div> */}
 <TradingViewTicker />
+      <button className="nav-mobile-menu" onClick={Hamburger} type="button">
+        <i className="fas fa-bars" />
+      </button>
 
     </nav>
   </>

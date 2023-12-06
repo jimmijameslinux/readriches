@@ -26,11 +26,12 @@
     padding: 10px;
     border-radius: 5px;
     margin: 5px 0;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.1s, color 0.1s;
   }
   
   .categories li:hover {
     background-color: #ef9d10;
+    opacity: 0.6;
     color: #fff;
   }
   
@@ -41,5 +42,11 @@
   
   .categories li.active:hover {
     background-color: #d28500;
+  }
+
+  @media screen and (max-width: 875px) {
+    .categories{
+      display: none;
+    }
   }
   

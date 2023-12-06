@@ -58,8 +58,8 @@ const storage = multer.diskStorage({
   
     const doc = await card.save();
   
-    console.log(doc);
-    console.log(doc.logoimage)
+    // console.log(doc);
+    // console.log(doc.logoimage)
     res.json(doc);
 });
 
@@ -71,4 +71,32 @@ app.get('/dashboard', async(req, res) => {
 app.delete('/dashboard/:id', async(req, res) => {
     const doc = await Card.findByIdAndDelete(req.params.id);
     res.json(doc);
+});
+
+app.put('/dashboard/:id', upload.fields([{ name: 'logoimage', minCount: 1 }, { name: 'mainimage', minCount: 1 }]), async (req, res) => {
+  try {
+      const updateFields = {
+          ...(req.body.company_name && { company_name: req.body.company_name }),
+          ...(req.body.title && { title: req.body.title }),
+          ...(req.body.category && { category: req.body.category }),
+          ...(req.files && req.files['logoimage'] && { logoimage: 'uploads/' + req.files['logoimage'][0].filename }),
+          ...(req.files && req.files['mainimage'] && { mainimage: 'uploads/' + req.files['mainimage'][0].filename }),
+          ...(req.body.first_color && { first_color: req.body.first_color }),
+          ...(req.body.second_color && { second_color: req.body.second_color }),
+      };
+
+      const doc = await Card.findByIdAndUpdate(req.params.id, { $set: updateFields }, { new: true });
+
+      if (!doc) {
+          // Card not found
+          return res.status(404).json({ error: 'Card not found.' });
+      }
+
+      // Successfully updated
+      res.json(doc);
+  } catch (error) {
+      // Handle other errors
+      console.error('Error updating card:', error);
+      res.status(500).json({ error: 'Internal server error.' });
+  }
 });
