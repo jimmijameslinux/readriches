@@ -1,4 +1,5 @@
 {
+  "homepage": "https://jimmijameslinux.github.io/readriches/home",
   "name": "readriches",
   "version": "0.1.0",
   "private": true,
@@ -9,6 +10,7 @@
     "axios": "^1.6.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "gh-pages": "^6.1.0",
     "mongoose": "^8.0.1",
     "multer": "^1.4.5-lts.1",
     "react": "^18.2.0",
@@ -19,6 +21,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

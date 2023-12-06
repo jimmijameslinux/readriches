@@ -80,7 +80,7 @@ const Navbar = () => {
       <Logo scrolling={scrolling} />
       <ul className="nav-links nav-links-mobile">
         <li>
-          <Link className={`nav-link nav-links-scrolled ${location.pathname === '/' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/">Home</Link>
+          <Link className={`nav-link nav-links-scrolled ${location.pathname === '/home' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/">Home</Link>
         </li>
         <li>
           <Link className={`nav-link nav-links-scrolled ${location.pathname === '/about' ? 'active' : ''} ${location.pathname !== '/' ? 'nav-link-white' : ''}`} to="/about">About Us</Link>
