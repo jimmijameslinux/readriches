@@ -1,0 +1,229 @@
+/* import font-families:Noto Sans Variable,Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; */
+
+
+
+.allabout{
+  scroll-snap-type: y mandatory;
+}
+
+.aboutmain{
+  background-color: #ececec ;
+  /* overflow: hidden; */
+}
+
+
+.abouticons {
+    transition: transform 0.5s ease; /* Add this line for the transition effect */
+    /* transform-origin: 50% 20%; */
+    /* border: 1px solid; */
+    /* position: fixed; */
+    left: 60%;
+    top: 15rem;
+    border-radius: 50%;
+    width: 30vw;
+    position: sticky;
+    top: 15rem;
+    margin-left: 30px;
+    height: fit-content;
+  }
+  
+  /* Add these lines to handle the initial rotation state */
+  .abouticons.rotate-45 {
+    transform: rotate(45deg);
+  }
+  
+  .abouticons.rotate-120 {
+    transform: rotate(120deg);
+  }
+  
+  .abouticons.rotate-135 {
+    transform: rotate(240deg);
+  }
+
+  #sectiona{
+    /* border: 1px solid; */
+    padding: 6rem;
+    scroll-snap-align: start;
+    margin-bottom: 2.5rem;
+    height: 100vh;
+    padding-block: 10rem;
+  }
+
+  #sectionb{
+    background-color: #fff;
+    /* padding-block: 4rem; */
+    scroll-snap-align: start;
+    padding: 6rem;
+    /* padding-inline: 2rem; */
+    /* border: 1px solid red; */
+  }
+
+  #sectionc{
+    scroll-snap-align: start;
+    background-color: #fff;
+    /* border: 1px solid green; */
+    height: 100vh;
+    padding: 6rem;
+  }
+
+  .bruh1{
+    width: 60%;
+  }
+
+  .bruh1 p{
+    height: 30vh;
+  }
+
+  .bruh1 div{
+    width: 70%;
+  }
+
+  
+  #community{
+    row-gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    scroll-snap-align: start;
+    height: 100vh;
+    padding-block: 5rem;
+  }
+
+  .cardone{
+    position: absolute;
+    transform: translateX(100%);}
+
+
+  .cardtwo{
+    position: absolute;
+    transform: translateX(200%);
+  }
+
+  .cardthree{
+    position: absolute;
+    transform: translateX(300%);
+  }
+
+  .cardfour{
+    position: absolute;
+    transform: translateX(400%);
+  }
+
+  .cardfive{
+    position: absolute;
+    transform: translateX(500%);
+  }
+
+  .communitycards{
+    padding-bottom: 10rem;
+    padding-top: 5rem;
+    width: 99vw;
+  }
+
+  .communitycards> div{
+    align-items: center;
+    width: 100%;
+  }
+
+   .communitycards button{
+    height: fit-content;
+    z-index: 1;
+    position: relative;
+    top: 9rem;
+    width: 50px;
+    height: 50px;
+    border-radius:50%;
+  }
+
+  .prev{
+    left: -23.5rem;
+  }
+
+  .after{
+    right: -23.5rem;
+  }
+  
+  .communitycards p{
+    width: 40rem;
+    font-weight: 400;
+    font-size: 1.6rem ;
+    line-height: 1.4;
+    text-align: left;
+  }
+  
+  .communitypara{
+    margin-bottom: 6rem;
+  }
+  .communityname{
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    width: 40rem !important; ;
+  }
+
+  .communityplace{
+    font-size: 1rem !important;
+    width: 40rem !important;
+  }
+
+
+  /* transition to progress */
+  .progress{
+    transition: width 0.5s ease; /* Add this line for the transition effect */
+  }
+
+  .communityimg{
+    /* border: 1px solid white; */
+    border-radius: 20px;
+    overflow: hidden;
+    /* height: fit-content; */
+    position: relative;
+    height: 351px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    scale: 1.5;
+  }
+
+  .communityimg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  
+  /*.communitycards button:last-child{
+    transform: translateX(-500px);
+  } */
+
+  .scrollprogress{
+    position: fixed;
+    top: 62px;
+    height: 10px;
+    width: 100%;
+    background-color: #FFD700;
+    z-index: 1000;
+    transform-origin: left;
+    scale: 0 1;
+    animation: scrollprogress linear;
+    animation-timeline: scroll();
+  }
+
+  @keyframes scrollprogress{
+    to{
+      scale: 1 1;
+    }
+  }
+
+  .communityimg{
+    animation: scaling linear;
+    animation-timeline:scroll(root);
+    animation-range: contain, contain;
+  }
+
+  @keyframes scaling{
+    from{
+      transform: scale(0.5);
+    }
+    to{
+      transform: scale(1);
+    }
+  }

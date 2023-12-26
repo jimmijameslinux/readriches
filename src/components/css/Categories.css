@@ -1,11 +1,17 @@
+*{
+  box-sizing: border-box;
+}
+
 .categories {
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
+    color: #fff;
     padding: 15px;
-    border: 1px solid #e1e1e1;
+    /* border: 1px solid #e1e1e1; */
     border-radius: 5px;
-    width: 17rem;
     position: relative;
     overflow-y: auto;
+    height: 36rem;
+    width: 21rem;
   }
   
   .categories h2 {
@@ -13,7 +19,14 @@
     padding: 0;
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: #333;
+    /* color: #333; */
+  }
+
+  .categories ul{
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    /* row-gap: 1rem !important; */
   }
   
   .categories li {
@@ -27,23 +40,49 @@
     border-radius: 5px;
     margin: 5px 0;
     transition: background-color 0.1s, color 0.1s;
+    font-size: 15px;
+    outline: 2px solid #8f8181;
+    row-gap: 10px;
+  }
+
+  .categories li span{
+    text-wrap: nowrap;
   }
   
   .categories li:hover {
+    /* border: 2px solid #fff; */
     background-color: #ef9d10;
-    opacity: 0.6;
+    color: black;
+    /* opacity: 0.6; */
     color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding-block: 15px;
+  }
+  
+  .categories li:hover span{
+    font-size: medium;
+    text-transform: uppercase;
+  }
+  
+  .categories li:hover img{
+    scale: 2;
+    
   }
   
   .category_active {
     background-color: #ef9d10;
     color: #fff;
   }
+
   
   .categories li.active:hover {
     background-color: #d28500;
   }
-
+  
+  .category_active:hover {
+    opacity: 1 !important;
+  }
   @media screen and (max-width: 875px) {
     .categories{
       display: none;

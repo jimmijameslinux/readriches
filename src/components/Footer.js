@@ -1,16 +1,16 @@
 import React from 'react';
 import '../components/css/Footer.css'; // Import the CSS file
-import logo from '../components/img/rrgold.png'
+import logo from '../components/img/finallogo.png'
 import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const location = useLocation();
   return (
-    <footer className={`footer ${location.pathname === '/contact' ? 'footer-fixed' :''} ${location.pathname==='/dashboard'?'footer_dash':''}`}>
+    <footer className={`footer ${location.pathname === '/contact' ? 'footer-fixed' :''} ${location.pathname==='/dashboard'?'footer_dash':''} ${location.pathname==='/membershipcard'?'footer_dash':''}`}>
       <div className="footer-content">
 
         <div className="footer-section about">
-          <img src={logo} alt='Logo' width={100} />
+          <img src={logo} alt='Logo' width={100} style={{marginBottom:"10px"}} />
           <p style={{ fontSize: "1rem" }}>
             <b>
               Get in Touch

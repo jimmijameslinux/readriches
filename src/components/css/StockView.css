@@ -1,0 +1,26 @@
+
+table {
+    /* width: 90%; */
+    /* border-collapse: collapse; */
+    /* margin-top: 20px; */
+    border-spacing: 20px;
+  }
+
+  th, td {
+    border: 2px solid #d6abab;
+    padding: 8px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  td{
+    color: #000;
+  }
+
+  td:nth-child(1) {
+    background-color: #f2f2f2;
+    color: #000;
+  }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../components/css/Banner.css';
-import bull from '../components/img/bull.png';
+import bull from '../components/img/acc_bull.png';
 
 const Banner = () => {
   // const [scrolling, setScrolling] = useState(false);
@@ -38,8 +38,15 @@ const Banner = () => {
       }}
     >
       <div className="card-content_banner">
-        <h1>Read Riches is...</h1>
-        <h2>Pure Love of Finance Creativity</h2>
+        <h1> <span style={{textTransform:"uppercase"}}>
+          Read Riches
+          </span>
+           &nbsp;is...</h1>
+        <h2 className='moveh2' style={{color:"#fff"}}>Where<span style={{textTransform:"uppercase",fontWeight:"800",fontSize:"3.5rem",color:"#fff"}}> Finance </span>
+        <br />
+        Meets 
+        <span style={{textTransform:"uppercase",fontWeight:"800",fontSize:"3.5rem",color:"#fff"}}> Creativity </span>
+          </h2>
         <div className='btns'>
           <button>Join Us</button>
           <button>Explore</button>
@@ -63,16 +70,15 @@ const Banner = () => {
           </div>
         </div>
       </div>
-      <div className="card-image_banner" style={{width:"100rem"}}>
-        <img src={bull} width={"100%"} alt="bull" style={{
-          position: "relative",
-          left: "5rem"
+      <div className="card-image_banner" style={{width:"94rem"}}>
+        <img src={bull} width={"38%"} alt="bull" style={{
+          
         }} />
       </div>
       <div className="banneryellow" >
         <div>
         <p className='p1'>EXPERIENCE</p>
-        <p className='p2'>EXCLUSITIVITY</p>
+        <p className='p2'>EXCLUSIVITY</p>
         </div>
       </div>
     </div>

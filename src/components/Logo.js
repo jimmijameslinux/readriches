@@ -1,6 +1,6 @@
 import React from 'react';
 // import logo1 from '../components/img/white_read.png'
-import logo2 from '../components/img/rrgold2.png'
+import logo2 from '../components/img/rrlogo.png'
 
 // import {useLocation } from 'react-router-dom';
 

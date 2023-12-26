@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ }
+
+
+.body{
+     /* background: none; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* background: linear-gradient(to right,#e2bf7d, #ff0b69); */
+ }
+ .box{
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+    background: linear-gradient(120deg, #ffff00, #ff0000);
+    transform: translate(150px, 120px);
+   filter: blur(30px);
+
+ }
+ .box::before{
+    content: '';
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: linear-gradient(120deg, #ffff00, #ff0000);
+    transform: translate(-250px, -120px);
+ }
+ .box::after{
+    content: '';
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: linear-gradient(120deg, #ffff00, #ff0000);
+    transform: translate(250px, -220px);
+ }
+ .memcard{
+    position: relative;
+    bottom: 8rem;
+    display: block;
+    height: 400px !important;
+    width: 762px;
+    background-image: url("../img/memcardimg.png");
+   background-size: cover;
+    border-radius: 30px;
+    overflow: hidden;
+    /* box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3); */
+ }
+ .bank-name{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 30px 30px;
+    font-weight: 550;
+    color: #e4eaf7;
+    letter-spacing: 3px;
+ }
+ .memcard-no{
+    position: relative;
+    width: 100%;
+    top: 60px;
+    font-weight: bold;
+    font-size: 22px;
+    letter-spacing: 2px;
+    font-family: sans-serif;
+    padding: 5px 30px;
+ }
+
+ .memcard-no span{
+    margin-right: 1rem;
+ }
+ .txt-field{
+    background: transparent;
+    /* padding: 20px 30px; */
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 2px;
+    position: relative;
+    top: 6rem;
+    left: 2rem;
+ }
+ .valid{
+    font-size: 22px;
+ }
+ .valid span{
+    font-size: 10px;
+    font-weight: 400;
+ }
+ .holder-name{
+    font-family: Verdana, Tahoma, sans-serif;
+    letter-spacing: 5px;
+    font-size: 28px;
+    padding: 10px 0;
+ 
+ }
+ .memcard:hover{
+    cursor: pointer;
+ }
+ 
+ 
+ 

@@ -1,10 +1,36 @@
+
 .Tradecontainer{
     display: flex;
+    width: 100vw;
+    justify-content: space-between;
 }
 
 .Stockele{
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.Stockele > p:nth-child(2){
+    color: #000;
+    background-color: white;
+    border-radius: 5px;
+    padding-inline: 8px;
+    padding-block: 4px;
+    text-align: center;
+}
+
+.Stockele > p:nth-child(3){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.Stockele svg{
+    margin-right: 0.5rem;
 }
 
 @media (max-width: 875px){

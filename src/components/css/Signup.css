@@ -1,0 +1,28 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.signupmain{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    height: 86.5vh;
+}
+
+.error {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    top: -4rem;
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 15px;
+    margin-bottom: 15px;
+  }

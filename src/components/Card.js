@@ -39,7 +39,8 @@ const Card = ({ company_name, title, images, images2, primarycolor, secondarycol
       <div className="card"
         // style={{background:"transparent"}}
         // Code made by @
-        style={{ background: !hover ? `linear-gradient(180deg, ${primarycolor}, ${secondarycolor} 100%)` : `radial-gradient(${primarycolornew} 1%, ${secondarycolor})` }}
+        style={{ background: !hover ? `linear-gradient(180deg, ${primarycolor}, ${secondarycolor} 100%)` : `radial-gradient(${primarycolornew} 1%, ${secondarycolor})`,
+                 filter: !hover && `drop-shadow(0px 0px 0px  ${secondarycolor})` }}
         onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} onClick={blankPage}>
         <img src={`http://localhost:3001/${images}`} className='companylogo' alt="Placeholder" />
         <div className="card-image">

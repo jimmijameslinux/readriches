@@ -1,14 +1,14 @@
 .navbar {
   /* Add styles for your navigation bar */
-  /* color: #fff; */
+  color: wheat;
   display: flex;
   justify-content: left;
   align-items: center;
   z-index: 2;
   column-gap: 10rem;
   background-color: transparent;
-  padding-inline: 1rem;
-  padding-block: 0.2rem;
+  padding-inline: 1.3rem;
+  padding-block: 0.4rem;
   text-align: center;
   position: fixed;
   width: 100%;
@@ -17,9 +17,10 @@
 }
 /* Navbar.css */
 .nav-link {
+  font-size: 18px;
   display: flex;
   flex-direction: row;
-  color: #fff;
+  color: wheat;
   margin: 0 15px;
   text-decoration: none;
   font-weight: bold;
@@ -27,33 +28,39 @@
   border-radius: 0.3rem;
 }
 
+.nonavbar{
+  display: none !important;
+}
 
-.nav-link-white {
-  color: #333;
+.nav-links-mobile{
+  display: none;
+  transform: translateX(-100%);
+  text-decoration: none;
+}
+
+.nav-link-white:hover {
+  color: #fff !important;
 }
 
 .nav-link-white:hover {
   color: #fff;
 }
 
-
-
 .navbar-white {
   color: #333;
 }
 
-
-
 .navbar-scrolled {
   backdrop-filter: blur(3px);
   box-shadow: 0px 1px 5px #ef9d10;
-  color: #333;
+  color: wheat;
+  background-color: #333;
   /* Change the background color when scrolled */
 }
 
 
 .nav-links-scrolled {
-  color: #333;
+  color: white;
 }
 
 .nav-links-scrolled:hover {
@@ -71,11 +78,12 @@
 .navbar_top{
   /* color: #fff; */
   display: flex;
-  justify-content: space-between;
+  color: #000;
+  /* justify-content: space-between; */
   align-items: center;
   z-index: 2;
-  background-color: transparent;
-  padding-left: 1rem;
+  background-color: #333;
+  padding-left: 1.3rem;
   text-align: center;
   position: fixed;
   top: 0;
@@ -131,23 +139,34 @@
 
   .navbar{
     justify-content: space-around;
-  background-color: white;
+  background-color: #333;
   }
   .nav-links{
+    display: none;
+  }
+  .nav-links-mobile{
     position: absolute;
     display: flex;
     flex-direction: column;
     width: 100%;
     top: 4rem;
     background-color: #ef9d10;
-    color: white;
-    transform: translateX(-100%);
+    color: wheat;
+    padding: 1rem;
+    list-style: none;
+  }
+
+  .nav-link{
+    color: white !important;
+    margin: 0 0;
+    border-radius: 0;
   }
 
   .nav-link:hover {
-    color: #000;
     background-color: white;
+    color: #000 !important;
   }
+
 
   .nav-links-scrolled {
     color: white;
@@ -157,4 +176,5 @@
   .nav-mobile-menu{
     display: block;
   }
+
 }

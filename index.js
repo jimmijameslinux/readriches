@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
+const bcrypt = require('bcrypt');
 
 main().catch(err => console.log(err));
 
@@ -39,6 +40,7 @@ app.listen(3001, () => {
 
 const storage = multer.diskStorage({
     destination: './src/components/uploads/',
+    // 
     filename: function (req, file, cb) {
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
@@ -100,3 +102,117 @@ app.put('/dashboard/:id', upload.fields([{ name: 'logoimage', minCount: 1 }, { n
       res.status(500).json({ error: 'Internal server error.' });
   }
 });
+
+// signup
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String || undefined,
+});
+
+const User = mongoose.model('User', userSchema);
+
+app.post('/signup', async (req, res) => {
+  try {
+    // Validate input
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    // Check if the email already exists
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser) {
+      return res.status(409).json({ error: 'Email already exists.' });
+    }
+
+    // Create a new User instance
+    let user = new User();
+
+    // Set the email and hash the password
+    user.email = req.body.email;
+    user.password = await bcrypt.hash(req.body.password, 10);
+
+    // Save the user to the database
+    const doc = await user.save();
+
+    // Send the saved user document as a JSON response
+    res.json(doc);
+  } catch (error) {
+    // Handle errors, for example, send a 500 Internal Server Error response
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+// login
+app.post('/login', async (req, res) => {
+  try {
+    // Validate input
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    // Find the user by email
+    const user = await User.findOne({ email: req.body.email });
+
+    // If the user is not found, return a 404 Not Found response
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Compare the input password with the hashed password
+    const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+
+    // If the passwords don't match, return a 401 Unauthorized response
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'Incorrect password.' });
+    }
+
+    // Send a 200 OK response
+    res.json({ message: 'Login successful!' });
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// signup or login with google
+app.post('/google', async (req, res) => {
+  try {
+    // Validate input
+    if (!req.body.email) {
+      return res.status(400).json({ error: 'Email is required.' });
+    }
+
+    // Check if the user already exists
+    const existingUser = await User.findOne({ email: req.body.email });
+
+    if (!existingUser) {
+      // If the user doesn't exist, create a new User instance
+      let newUser = new User();
+
+      // Set the email (you might want to set other fields based on Google data)
+      newUser.email = req.body.email;
+
+      // Save the new user to the database
+      const doc = await newUser.save();
+
+      // Send the saved user document as a JSON response for signup
+      return res.json(doc);
+    }
+
+    // If the user already exists, log them in
+    // You might want to perform additional login logic here if needed
+
+    // Send a 200 OK response for login
+    res.json({ message: 'Login successful!' });
+
+  } catch (error) {
+    // Handle errors, for example, send a 500 Internal Server Error response
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+

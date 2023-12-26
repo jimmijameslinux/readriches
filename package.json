@@ -1,5 +1,4 @@
 {
-  "homepage": "https://jimmijameslinux.github.io/readriches/home",
   "name": "readriches",
   "version": "0.1.0",
   "private": true,
@@ -8,16 +7,21 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.1",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "gh-pages": "^6.1.0",
+    "jwt-decode": "^4.0.0",
     "mongoose": "^8.0.1",
     "multer": "^1.4.5-lts.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.5.3",
     "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.0",
     "react-tilt": "^1.0.2",
+    "react-toastify": "^9.1.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

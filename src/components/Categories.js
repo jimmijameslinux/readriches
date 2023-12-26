@@ -1,6 +1,16 @@
 // Categories.js
 import React, { useState } from 'react';
 import '../components/css/Categories.css';
+import all from '../components/img/all.png'
+import automobile from '../components/img/automobile.png'
+import aviation from '../components/img/aviation.png'
+import capital from '../components/img/capital.png'
+import chemicals from '../components/img/chemistry.png'
+import fmcg from '../components/img/fmcg.png'
+import hospitality from '../components/img/hospitality.png'
+import it from '../components/img/it.png'
+import metals from '../components/img/metals.png'
+
 
 const Categories = ({ onCategoryChange }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -11,28 +21,37 @@ const Categories = ({ onCategoryChange }) => {
   };
 
   const categories = [
-    'All',
-    'Automobile & Ancillaries',
-    'Aviation',
-    'Capital Goods',
-    'Chemicals',
-    'FMCG',
-    'Hospitality',
-    'IT & Software',
-    'Metals & Minerals',
+    ['All', all],
+    ['Automobile & Ancillaries', automobile],
+    ['Aviation', aviation],
+    ['Capital Goods', capital],
+    ['Chemicals', chemicals],
+    ['FMCG', fmcg],
+    ['Hospitality', hospitality],
+    ['IT & Software', it],
+    ['Metals', metals]
   ];
+
 
   return (
     <div className="categories">
-      <h2>Categories</h2>
+      <h2>Sectors</h2>
       <ul>
+        {
+          // console.log(categories[0][0])
+        }
         {categories.map((category) => (
+          // console.log(category[0]),
           <li
             key={category}
-            className={selectedCategory === category ? 'category_active' : ''}
-            onClick={() => handleCategoryChange(category)}
+            className={selectedCategory === category[0] ? 'category_active' : ''}
+            onClick={() => handleCategoryChange(category[0])}
+            style={{ display: "flex", justifyContent: "flex-start", alignItems: "center",position:"relative",gap:"1.5rem" }}
           >
-            {category}
+            <img src={category[1]} alt="category" width="20px" />
+            <span>
+              {category[0]}
+            </span>
           </li>
         ))}
       </ul>

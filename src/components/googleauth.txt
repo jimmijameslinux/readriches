@@ -1,0 +1,2 @@
+clientID:586580843313-t10e9v048f1qqktvrensdit0ikqp5hv2.apps.googleusercontent.com
+clientSecret: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

@@ -1,17 +1,13 @@
 /* Contact.css */
 
 .contact-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  position: relative;
+  top: -75px;
     width: 50%;
-    margin: auto;
     padding: 20px;
-    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    position: relative;
-    top: 5rem;
+    color: #fff;
   }
   
   form {
@@ -49,7 +45,16 @@
     font-size: 16px;
   }
   
-  button:hover {
+  .contact-container button:hover {
     background-color: #fab640;
+  }
+
+  .contactmain{
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    align-items: center;
+    position: relative;
+    top: 4rem;
   }
   
