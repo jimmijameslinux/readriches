@@ -2,14 +2,14 @@
 import React, { useState } from 'react';
 import '../components/css/Categories.css';
 import all from '../components/img/all.png'
-import automobile from '../components/img/automobile.png'
+import automobile from '../components/img/car_model.svg'
 import aviation from '../components/img/aviation.png'
 import capital from '../components/img/capital.png'
-import chemicals from '../components/img/chemistry.png'
+import chemicals from '../components/img/chemical_drop.svg'
 import fmcg from '../components/img/fmcg.png'
-import hospitality from '../components/img/hospitality.png'
-import it from '../components/img/it.png'
-import metals from '../components/img/metals.png'
+import hospitality from '../components/img/user_love.svg'
+import it from '../components/img/cloud.svg'
+import metals from '../components/img/heavy_metal.svg'
 
 
 const Categories = ({ onCategoryChange }) => {
@@ -47,8 +47,9 @@ const Categories = ({ onCategoryChange }) => {
             className={selectedCategory === category[0] ? 'category_active' : ''}
             onClick={() => handleCategoryChange(category[0])}
             style={{ display: "flex", justifyContent: "flex-start", alignItems: "center",position:"relative",gap:"1.5rem" }}
+            title={category[0]}
           >
-            <img src={category[1]} alt="category" width="20px" />
+            <img src={category[1]} alt="category" width="25px" />
             <span>
               {category[0]}
             </span>

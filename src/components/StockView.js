@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import News from './News';
 import TradingViewTicker from './TradingViewTicker';
 import '../components/css/StockView.css';
+import stock from '../components/img/stock.svg';
+import stocksearch from '../components/img/stocksearch.png';
+import stockfilter from '../components/img/stockfilter.png';
 
 export default function StockView() {
   const [loading, setLoading] = useState(true);
   const [newsItems, setNewsItems] = useState([]);
+  const [datas, setDatas] = useState([]);
+  const [isAnimated, setIsAnimated] = useState(false);
+
+  const stockdivRef = useRef(null);
+
   useEffect(() => {
     // Set loading to true when starting to fetch news
     setLoading(true);
-
     // Fetch news data
     fetchNews().then(() => {
       // Set loading to false when news data is fetched
@@ -17,11 +24,54 @@ export default function StockView() {
     });
   }, []);
 
+  useEffect(() => {
+    const intervalId = setInterval(fetchNews, 1200000); // Fetch news every 20 minutes
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    function animation() {
+      if (!stockdivRef.current) return;
+
+      setIsAnimated(true);
+
+      const scrollinner = stockdivRef.current.querySelector('.Tradecontainer');
+      if (!scrollinner) return;
+
+      const scrollcontent = Array.from(scrollinner.children);
+
+      scrollcontent.forEach((item) => {
+        const duplicate = item.cloneNode(true);
+        duplicate.setAttribute("aria-hidden", "true");
+        scrollinner.appendChild(duplicate);
+      });
+    }
+
+    animation();
+
+    // Cleanup function to remove cloned elements when component unmounts
+    return () => {
+      if (!stockdivRef.current) return;
+
+      setIsAnimated(false);
+
+      const scrollinner = stockdivRef.current.querySelector('.Tradecontainer');
+      if (!scrollinner) return;
+
+      const clonedItems = scrollinner.querySelectorAll('[aria-hidden="true"]');
+      clonedItems.forEach((item) => {
+        scrollinner.removeChild(item);
+      });
+    };
+  }, []);
+
+
   const fetchNews = async () => {
     try {
+      const newsapi = process.env.REACT_APP_NEWS;
       const response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=in&apiKey=a66821a1224a4fd6bd69189d8b74a4d6`
-        // Replace 'YOUR_API_KEY' with your actual News API key
+        `https://newsapi.org/v2/top-headlines?country=in&apiKey=${newsapi}`
       );
 
       if (!response.ok) {
@@ -29,7 +79,6 @@ export default function StockView() {
       }
 
       const data = await response.json();
-      console.log(data);
       // if any of the articles are missing an image, exclude them from the results
       const articles = data.articles
         .filter(article => article.title && article.description && article.url && article.urlToImage && article.source)
@@ -48,110 +97,147 @@ export default function StockView() {
   };
 
   const defaultSymbols = ['AAPL', 'GOOGL', 'MSFT'];
-  const [datas, setDatas] = useState([]);
   const updateDatas = (newDatas) => {
     setDatas(newDatas);
   };
-
-  // 2 decimal place number formatter without rounding off
 
   let roundedNumber = (val) => {
     return val.toFixed(3);
   }
 
   const getChangeColor = (change) => {
-    return change > 0 ? 'green' : 'red';
+    return change > 0 ? '#1AB032' : 'red';
   };
+
+  // const stockdiv = document.querySelector('.stockdivcontainer');
+
+  // const stockclickfunc = () => {
+  //   const stocktableclick = document.querySelectorAll('.stocktableclick');
+  //   stocktableclick.forEach((item) => {
+  //     item.addEventListener('click', () => {
+  //       // item.style.backgroundColor = "#1E6E76";
+  //       // item.style.color = "#fff";
+  //       if (item.style.backgroundColor !== "#1E6E76") {
+  //         item.style.backgroundColor = "#1E6E76";
+  //         item.style.color = "#fff";
+  //       }
+
+  //       if (item.style.backgroundColor === "#1E6E76") {
+  //         item.style.backgroundColor = "#fff";
+  //         item.style.color = "#000"
+  //       }
+  //       console.log("clicked")
+  //     });
+  //   });
+  // }
+
+
+  const pricerecomdate = 460;
+  const totalinvestedtime = 12;
+  // console.log((datas.c/{pricerecomdate})**(12/{totalinvestedtime})-1)
+  // console.log(datas[0].data['c']);
+  // const a = (datas[0].data['c'])/(pricerecomdate);
+  // const b = 12/(totalinvestedtime);
+  // const c = (a**b)-1;
+  // console.log(c*100);
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
 
   return (
     <>
-    <div style={{
-      padding: "6rem",
-      backgroundColor: "#ececec",
-      height: "100vh",
-    }}>
       <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        // color: "#fff",
-        backgroundColor: "#fff",
-        marginBottom: "5rem",
-        position: "relative",
-        top: "-1px",
-        borderRadius: "2rem",
-        filter: "drop-shadow(0px 0px 10px rgba(0,0,0,0.2))",
+        padding: "4rem 0rem 6rem",
+        backgroundColor: "#1C656D",
       }}>
-        <TradingViewTicker defaultSymbols={defaultSymbols} updateDatas={updateDatas} />
-        {/* {console.log(datas)} */}
-      </div>
-      <h2 style={{ textAlign: "center", width: "70%" }}>STOCKS</h2>
-      <div style={{ display: "flex", justifyContent: "space-between",alignItems:"flex-start" }}>
-        {/* div with fake stockticker content */}
-        <div className='table-container' style={{ width: "75vw", display: "flex", flexDirection: "column", height: "fit-content" }}>
-          <table>
-            <thead>
-              <tr>
-                <th>S.No.</th>
-                <th>Company Name</th>
-                <th>Industry</th>
-                <th>Current Price</th>
-                <th>Fair Price</th>
-                <th>Undervalued/Overvalued</th>
-              </tr>
-            </thead>
-            <tbody>
-              {datas.map((data, index) => (
-                <tr key={data.symbol}>
-                  <td>{index + 1}</td>
-                  <td>{data.symbol}</td>
-                  <td>{"n/a"}</td>
-                  <td>{data.data.c}</td>
-                  <td>{data.data.o}</td>
-                  <td style={{ color: getChangeColor(roundedNumber((data.data.o - data.data.c) / data.data.o)) }}>{roundedNumber((data.data.o - data.data.c) / data.data.o)}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {datas.length === 0 && <p style={{ fontSize: "2rem", textAlign: "center" }}>No Data</p>}
+        <img src={stock} alt="stock" style={{ width: "100%", height: "auto", marginTop: "2rem", marginBottom: "4rem" }} />
+        <div className='stockdivcontainer' style={{ justifyContent: datas.length === 0 && "center", color: datas.length === 0 && "#fff" }} ref={stockdivRef}>
+          {
+            // datas.length!==0?
+              isAnimated ?
+                <TradingViewTicker defaultSymbols={defaultSymbols} updateDatas={updateDatas} />
+                : null
+            // :
+            // <p style={{fontSize:"2rem",textAlign:"center"}}>No Data</p>
+          }
+          {/* {console.log(datas)} */}
         </div>
+        <h2 className='stocktitle' style={{ textAlign: "center", width: "100%", marginBottom: "1rem" }}>Stock Comparison</h2>
+        {/*  */}
+        <div style={{ width: '100%', justifyContent: 'center', alignItems: 'center', display: 'inline-flex', padding: "1rem", paddingInline: "5rem" }}>
+          <div style={{ gap: 30, display: 'flex' }}>
+            <div>
+              <div style={{ color: '#FAFAFA', fontSize: 20, fontFamily: 'Roboto Serif', fontWeight: '700', textTransform: 'capitalize', wordWrap: 'break-word' }}>75% equity</div>
+            </div>
+            <div style={{ color: '#FAFAFA', fontSize: 20, fontFamily: 'Roboto Serif', fontWeight: '300', textTransform: 'capitalize', wordWrap: 'break-word' }}> 32%bonds</div>
+            <div style={{ color: '#FAFAFA', fontSize: 20, fontFamily: 'Roboto Serif', fontWeight: '300', textTransform: 'capitalize', wordWrap: 'break-word' }}>Industry </div>
+          </div>
+          <div style={{ flex: '1 1 0', justifyContent: 'flex-end', gap: 20, display: 'flex' }}>
+            <div style={{ height: 46, paddingLeft: 10, paddingRight: 10, paddingTop: 7, paddingBottom: 7, borderRadius: 10, border: '1px #F2DDC2 solid', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'flex' }}>
+              <img src={stocksearch} alt="" />
+              <div style={{ color: '#F2DDC2', fontSize: 16, fontFamily: 'Roboto Serif', fontWeight: '500', textTransform: 'capitalize', wordWrap: 'break-word' }}>search</div>
+            </div>
 
-        <News newsItems={newsItems} loading={loading} />
+            <div style={{ height: 46, paddingLeft: 10, paddingRight: 10, paddingTop: 7, paddingBottom: 7, background: '#F2DDC2', borderRadius: 10, justifyContent: 'center', alignItems: 'center', gap: 10, display: 'flex' }}>
+              <img src={stockfilter} alt="" />
+              <div style={{ color: '#242424', fontSize: 16, fontFamily: 'Roboto Serif', fontWeight: '500', textTransform: 'capitalize', wordWrap: 'break-word' }}>Filters</div>
+            </div>
+          </div>
+        </div>
+        {/*  */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexDirection: "column", height: "fit-content" }}>
+          {/* div with fake stockticker content */}
+          <div className='table-container' style={{ width: "100%", display: "flex", flexDirection: "column", height: "fit-content", marginBottom: "5rem", paddingInline: "5rem", borderRadius: "10px" }}>
+            <table>
+              <thead>
+                <tr style={{ width: "100%" }}>
+                  <th>S.No.</th>
+                  <th>Company Name</th>
+                  <th>Price on recommended date </th>
+                  <th>Current Price</th>
+                  <th>Date of posting</th>
+                  <th>Today's date</th>
+                  <th>Total invested time (in month(s))</th>
+                  <th>CAGR</th>
+                </tr>
+              </thead>
+              <tbody>
+                {datas.map((data, index) => (
+                  <tr className='stocktableclick'
+                    key={data.symbol}>
+                    <td>{index + 1}</td>
+                    <td>{data.symbol}</td>
+                    <td style={{ textTransform: "uppercase" }}>{pricerecomdate}</td>
+                    <td>
+                      {data.data.c}
+                    </td>
+                    <td>{formatDate(data.data.t)}</td>
+                    <td>{formatDate(Date.now())}</td>
+                    <td>{totalinvestedtime}</td>
+                    {/* <td>{data.data.o}</td> */}
+                    <td style={{ color: getChangeColor(roundedNumber((data.data.c / pricerecomdate) ** (12 / totalinvestedtime) - 1)) }}>
+                      {roundedNumber((((data.data.c / pricerecomdate) ** (12 / totalinvestedtime)) - 1) * 100)}%
+                    </td>
 
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {datas.length === 0 && <p style={{ fontSize: "2rem", textAlign: "center" }}>No Data</p>}
+          </div>
+
+          <News newsItems={newsItems} loading={loading} />
+
+        </div>
       </div>
-    </div>
-      <div style={{padding:"6rem",backgroundColor:"#fff"}}>
-        <h3 style={{ textAlign: "center", fontSize: "2rem",marginBottom:"2rem" }}>How do we pick companies?</h3>
 
-        <p style={{ fontSize: "1.5rem",marginBottom:"2rem" }}>
-
-          Unveiling Our In-House Algorithm
-        </p>
-        <p style={{ fontSize: "1.5rem", display:"flex",flexDirection:"column",rowGap:"2rem" }}>
-
-          {/* <p> */}
-
-          At Read Riches, our company selection process is powered by a proprietary algorithm developed in-house. This algorithm serves as our compass in the vast landscape of stocks, helping us pinpoint companies that fall into distinct categories.
-          {/* </p> */}
-
-          <h5>
-
-            Spotting Market Leaders:
-          </h5>
-
-          Our algorithm is like a spotlight that identifies companies standing tall in their industries. These are the heavyweights, the names that echo throughout the market with their established dominance.
-
-          <h5>
-
-            Seeking Hidden Gems with Growth Potential:
-          </h5>
-          Going beyond the obvious, our algorithm uncovers companies flying under the radar but with huge growth potential. These hidden gems might be undervalued now, but our tool predicts a promising future with substantial upside.
-
-          <br />
-          So, when we talk about picking companies, it's not just about a random choice. It's about leveraging our smart algorithm to pinpoint both the established leaders and the promising underdogs. It's like having a strategic partner in the stock market game, helping us make informed decisions.
-        </p>
-
-      </div>
-              </>
+    </>
   )
 }

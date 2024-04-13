@@ -1,14 +1,19 @@
 import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import "../components/css/Signup.css"
+// use nodemailer
 
 export default function Signup() {
+  
   const [SignupStatus, setSignupStatus] = useState({ success: null, message: '' });
   const Redirecting = () => {
     // const location = useLocation();
-    const redirect_uri = "/";
+    // const redirect_uri = "/login";
+    const redirect_uri = "/otp";
     window.location.href = `${redirect_uri}`
   }
 
+  const navigate = useNavigate();
   const HandleSignup = async (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
@@ -27,11 +32,11 @@ export default function Signup() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           // Assuming the server returns a success message or token, you can redirect here
           Redirecting();
           setSignupStatus({ success: true, message: 'Signup successful!' });
-        } else {
+        }
+         else {
           const errorData = await response.json();
           console.error('Signup failed:', errorData.error);
 
@@ -43,16 +48,21 @@ export default function Signup() {
             setSignupStatus({ success: false, message: errorData.error || 'Signup failed. Please try again.' });
           }
         }
-      } catch (error) {
+      } 
+      catch (error) {
         console.error('Error during signup:', error);
         // Handle network errors, etc., and set the state for displaying a notification
         setSignupStatus({ success: false, message: 'Error during signup. Please try again later.' });
       }
-    } else {
+    } 
+    else {
       console.log('Passwords do not match');
       setSignupStatus({ success: false, message: 'Passwords do not match' });
     }
+    // navigate('/otp');
+    Redirecting();
   };
+
   return (
     <main className='signupmain'>
     <div style={{width:"30%",position:"relative"}}>
@@ -60,7 +70,9 @@ export default function Signup() {
           
           {/* login and signup */}
 
-          <form className="form" onSubmit={HandleSignup}>
+          <form className="form" 
+          onSubmit={HandleSignup}
+          >
               <div className="form-group">
                   <label htmlFor="email">Email</label>
                   <input type="email" id="email" placeholder="Enter Email" required />
@@ -73,8 +85,11 @@ export default function Signup() {
                   <label htmlFor="password2">Confirm Password</label>
                   <input type="password" id="password2" placeholder="Confirm Password" required />
               </div>
-              <button type="submit" className="btn">Sign Up</button>
-              <p>Already have an account? <a href="/">Login</a></p>
+              <button type="submit" className="btn"
+              >Sign Up</button>
+              <p>Already have an account? <u onClick={()=>{
+                navigate('/login');
+              }} style={{textDecoration:"underline",color:"purple",cursor:"pointer"}}>Login</u></p>
 
               {SignupStatus.success !== null && (
             <div className={SignupStatus.success ? '' : 'error'}>

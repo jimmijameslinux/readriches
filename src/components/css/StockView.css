@@ -1,26 +1,96 @@
-
 table {
-    /* width: 90%; */
-    /* border-collapse: collapse; */
-    /* margin-top: 20px; */
-    border-spacing: 20px;
-  }
+  /* width: 90%; */
+  border-collapse: collapse;
+  /* margin-top: 20px; */
+  /* border-spacing: 20px; */
+  border-radius: 10px;
+}
 
-  th, td {
-    border: 2px solid #d6abab;
-    padding: 8px;
-    text-align: center;
-  }
+th,
+td {
+  /* border: 2px solid #d6abab; */
+  padding: 8px;
+  text-align: center;
+}
 
-  th {
-    background-color: #f2f2f2;
-  }
+th {
+  /* background: var(--orange-gradient, linear-gradient(180deg, #F2DDC2 0%, #E7BD88 100%)); */
+  background-color: #B4E7ED;
+  color: var(--grey-1, #474747);
+  padding: 40px 16px;
+  font-family: "Roboto Serif";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  /* 133.333% */
+  text-transform: capitalize;
+  /* text-wrap: nowrap; */
+}
 
-  td{
-    color: #000;
-  }
+td {
+  /* display: flex; */
+  padding: 16px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* gap: 10px; */
+  align-self: stretch;
+  font-family: "Roboto Serif";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  /* 177.778% */
+  /* background-color: #f2f2f2; */
+  border-bottom: 1px solid rgba(71, 71, 71, 0.40);
+}
 
-  td:nth-child(1) {
-    background-color: #f2f2f2;
-    color: #000;
-  }
+tr {
+  background-color: #f2f2f2;
+  color: var(--grey-1, #474747);
+  border-radius: 10px;
+}
+
+/* tr:nth-child(2) {
+  color: #fff;
+  background-color: #1E6E76;
+} */
+
+.stockdivcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 9rem;
+  width: 100%;
+  height: 77px;
+  /* filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2)); */
+  overflow-x: hidden;
+  padding-inline: 2rem;
+  /* -webkit-mask: linear-gradient(90deg, transparent, black 20%, black 80%, transparent);
+  mask: linear-gradient(90deg, transparent, black 20%, black 80%, transparent); */
+
+  background: rgba(180, 231, 237, 0.70);
+  box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.stocktitle {
+  /* color: var(--Rectangle-82, #B4E7ED); */
+  color: #fff;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 47px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  /* 88.889% */
+}
+
+.stocktableclick .selected{
+  color: #fff;
+  background-color: #1E6E76;
+}
+
+.stocktableclick{
+  background-color: #f2f2f2;
+  color: var(--grey-1, #474747);
+}

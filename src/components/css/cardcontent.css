@@ -1,0 +1,79 @@
+.cardcontent{
+    background-image: url('../img/pptpic1indigo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#controls{
+    position: absolute;
+    z-index: 10;
+    top: 20rem;
+    width: 100vw;
+    display: flex;
+    padding-inline: 10px;
+    justify-content: space-between;
+}
+
+progress[value] {
+    appearance: none;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+    color: dodgerblue;
+    /* display: inline; */
+    height: 20px;
+    order: 1;
+    position: relative;
+    top: -1rem;
+    width: 100%;
+    z-index: 10;
+  }
+
+  /* WebKit styles */
+  progress[value]::-webkit-progress-bar {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+  }
+
+  progress[value]::-webkit-progress-value {
+    background-image: 
+    linear-gradient(to right, green, cyan);
+    border-radius: 3px;
+    position: relative;
+    transition: width 1s linear;
+  }
+
+  #controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007BFF; /* Button background color */
+    color: #FFFFFF; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  
+    /* Hover effect */
+    &:hover {
+      background-color: #0056b3; /* Darker shade of the button color */
+    }
+  
+    /* Active effect */
+    &:active {
+      transform: scale(0.98);
+    }
+  
+    /* Disable effect */
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+  

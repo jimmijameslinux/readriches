@@ -8,20 +8,13 @@ const TradingViewTicker = ({defaultSymbols,updateDatas}) => {
   useEffect(() => {
     const fetchStockData = async () => {
       try {
-        const apiKey = 'clatb59r01qi1291dca0clatb59r01qi1291dcag';
-        // const apiKey = '6ac3fe3093cca64883c1781c6dca8058';
+        const apiKey = process.env.REACT_APP_STOCK;
 
 
         const promises = defaultSymbols.map(async (symbol) => {
-          // const apiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`;
           const apiUrl = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}`
-          // const apiUrl = `https://financialmodelingprep.com/api/v3/quote/${defaultSymbols}?apikey=${apiKey}`
           const response = await fetch(apiUrl);
           const data = await response.json();
-          // setDatas(data)
-
-
-          // console.log(data);
 
           if (data['c']) {
             return { symbol, data };
@@ -40,14 +33,14 @@ const TradingViewTicker = ({defaultSymbols,updateDatas}) => {
       }
     };
 
+    
+    // Set up interval for periodic fetch
+    const intervalId = setInterval(fetchStockData, 1200000); // Fetch every 60 seconds
     fetchStockData();
-
-      // Set up interval for periodic fetch
-  setInterval(fetchStockData, 1200000); // Fetch every 60 seconds
 
 
   // Cleanup the interval on component unmount
-  // return () => clearInterval(intervalId);
+   return () => clearInterval(intervalId);
 
 
   },[]);

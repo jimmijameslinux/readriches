@@ -1,37 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import '../components/css/News.css';
+import founderarrow from '../components/img/founderarrow.png'
+
 
 const News = ({ newsItems, loading }) => {
   const [scrolling, setScrolling] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
   // const [dataLoaded, setDataLoaded] = useState(false);
 
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 385) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.scrollY > 385) {
+  //       setScrolling(true);
+  //     } else {
+  //       setScrolling(false);
+  //     }
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
+
+  const itemsPerPage = 3; // Number of items to display per page
+  const [currentPage, setCurrentPage] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % newsItems.length);
+    setCurrentPage((prevPage) => (prevPage + 1) % Math.ceil(newsItems.length / itemsPerPage));
+    // smooth transition
   };
+
+  const handlePrev = () => {
+    setCurrentPage(
+      (prevPage) => (prevPage - 1 + Math.ceil(newsItems.length / itemsPerPage)) % Math.ceil(newsItems.length / itemsPerPage)
+    );
+  };
+
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+
   useEffect(() => {
     // Check if news data is loaded
     if (newsItems.length > 0) {
       // Start automatic sliding after data is loaded
       const interval = setInterval(() => {
-        // handleNext();
+        handleNext();
       }, 5000);
 
       // Set dataLoaded to true to prevent starting the interval again
@@ -41,12 +57,6 @@ const News = ({ newsItems, loading }) => {
       return () => clearInterval(interval);
     }
   }, [newsItems]);
-
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + newsItems.length) % newsItems.length);
-  };
-
   // check if img is loaded true/false
   // const [imgLoaded, setImgLoaded] = useState(true);
   // const handleImageLoaded = () => {
@@ -57,6 +67,7 @@ const News = ({ newsItems, loading }) => {
 
   return (
     <>
+      <h2 style={{marginBottom:"3rem",width:"100%",textAlign:"center",textTransform:"uppercase",color:"#fff"}}>Latest News</h2>
       <div className={`news-container news-panel ${scrolling ? 'news-panelnew' : ''}`}>
         {loading ? (
           <>
@@ -69,14 +80,21 @@ const News = ({ newsItems, loading }) => {
           </>
         ) : (
           <>
-            <div className="carousel">
-              {newsItems.map((news, index) => (
+            <div className='carouselbtns'>
+              <button className="carousel-btn btn1" onClick={handlePrev}>
+                <img src={founderarrow} alt="" />
+              </button>
+              <button className="carousel-btn btn2" onClick={handleNext}>
+                <img src={founderarrow} alt="" />
+              </button>
+            </div>
+            <div className="carousel" >
+              {newsItems.slice(startIndex, endIndex).map((news, index) => (
                 news.title && news.description && news.url && news.img && news.source &&
                 (
                   <div
                     key={index}
-                    className={`carousel-item ${index === currentIndex ? 'active' : ''}`}
-                    style={{ transform: `translateX(${-currentIndex * 100}%)` }}
+                    className={`carousel-item`}
                   >
                     <div style={{
                       width: "100%",
@@ -94,14 +112,7 @@ const News = ({ newsItems, loading }) => {
                 )
 
               ))}
-      <div className='carouselbtns'>
-        <button className="carousel-btn btn1" onClick={handlePrev}>
-          &lt;
-        </button>
-        <button className="carousel-btn btn2" onClick={handleNext}>
-          &gt;
-        </button>
-      </div>
+
             </div>
           </>
         )}

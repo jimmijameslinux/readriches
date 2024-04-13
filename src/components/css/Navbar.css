@@ -4,7 +4,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  z-index: 2;
+  z-index: 4;
   column-gap: 10rem;
   background-color: transparent;
   padding-inline: 1.3rem;
@@ -15,80 +15,125 @@
   transition: 0.3s;
   /* Add a smooth transition effect */
 }
-/* Navbar.css */
-.nav-link {
-  font-size: 18px;
-  display: flex;
-  flex-direction: row;
-  color: wheat;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
+
+.loginbtn,
+.logoutbtn{
+  background-color: #1e6e76;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1.3rem;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+  transition: all 0.3s ease-in-out 0s;
 }
 
-.nonavbar{
+.navbar .fas{
+  color: #fff;
+}
+
+/* Navbar.css */
+.nav-link,.nav-link-stock {
+  position: relative;
+  color: #FFF;
+  font-family: "Roboto Serif";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+  /* font-weight: bold; */
+  padding: 0.5rem;
+  /* border-radius: 1.3rem; */
+}
+
+.nonavbar {
   display: none !important;
 }
 
-.nav-links-mobile{
+.nav-links-mobile {
   display: none;
   transform: translateX(-100%);
   text-decoration: none;
 }
 
 .nav-link-white:hover {
-  color: #fff !important;
+  /* color: #fff !important; */
 }
 
 .nav-link-white:hover {
-  color: #fff;
+  /* color: #fff; */
 }
 
 .navbar-white {
   color: #333;
 }
 
+.nav-links-scrolled {
+  color: #000;
+}
+
 .navbar-scrolled {
-  backdrop-filter: blur(3px);
-  box-shadow: 0px 1px 5px #ef9d10;
-  color: wheat;
-  background-color: #333;
+  /* backdrop-filter: blur(3px); */
+  /* box-shadow: 0px 1px 5px #ef9d10; */
+  /* background-color: #333; */
+  background-color: #FFF;
+  box-shadow: 10px 10px 28.2px 0px rgba(0, 0, 0, 0.10);
   /* Change the background color when scrolled */
 }
 
-
-.nav-links-scrolled {
-  color: white;
+.navbar-scrolled .fas{
+  color: #1e6e76;
 }
 
 .nav-links-scrolled:hover {
-  color: #fff;
+  /* color: #fff; */
 }
-.nav-links{
+
+.nav-links {
   display: flex;
   list-style: none;
 }
 
 .nav-link:hover {
-  background-color: #ef9d10;
+  /* background-color: rgba(255, 255, 255, 0.2);
+   opacity: 0.8; */
+  /* background-color: #F2DDC2;
+  color: #1E6E76; */
+  /* border-radius: 30%; */
 }
 
-.navbar_top{
+.navbar_top {
   /* color: #fff; */
   display: flex;
-  color: #000;
+  background-color: #FFF;
+  box-shadow: 10px 10px 28.2px 0px rgba(0, 0, 0, 0.10);
+  /* color: #000; */
   /* justify-content: space-between; */
   align-items: center;
-  z-index: 2;
-  background-color: #333;
+  z-index: 3;
+  /* background-color: #333; */
   padding-left: 1.3rem;
   text-align: center;
   position: fixed;
   top: 0;
   width: 100%;
   transition: 0.3s;
+}
+
+.navbar_top .fas{
+  color: #1e6e76;
+}
+
+.navbar_top .nav-link {
+  color: #000;
 }
 
 /* /////////////////////////////////// */
@@ -113,7 +158,8 @@
 
 /* Hamburger icon styles */
 .hamburger-icon {
-  display: none; /* Hide by default for larger screens */
+  display: none;
+  /* Hide by default for larger screens */
   cursor: pointer;
   padding: 15px;
 }
@@ -126,25 +172,133 @@
   transition: 0.4s;
 }
 
-.navbar_dash{
+.navbar_dash {
   display: none;
 }
 
-.nav-mobile-menu{
+.nav-mobile-menu {
   display: none;
+}
+
+.profile{
+  position: relative;
+  cursor: pointer;
+}
+
+.profilecontent{
+  width: 150px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  /* height: 2px; */
+  background-color: #fff;
+  position: absolute;
+  bottom: -55px;
+  left: 0;
+  visibility: hidden;
+  /* transform: scaleX(0); */
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.profilecontentvisible{
+  width: 150px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  /* height: 2px; */
+  background-color: #fff;
+  position: absolute;
+  bottom: -55px;
+  visibility: visible;
+  /* transform: scaleX(1); */
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.profilecontent a,.profilecontentvisible a{
+  color: #000;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.profilecontent a:hover,.profilecontentvisible a:hover{
+  color: #1e6e76;
+}
+
+.profilelogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.nav-links .active{
+  position: relative;
+}
+.nav-links .active::after,.activestock::after,.activescrolled::after {
+  /* border-bottom: 2px solid #1E6E76; */
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #1e6e76;
+  visibility: visible;
+  transform: scaleX(1);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.activestock::after{
+  background-color: #fff;
+}
+
+.activescrolled::after{
+  background-color: #1e6e76;
+}
+
+
+/* active before element width 100% height 2px color #1e6e76 */
+
+.nav-link::before,.nav-link-stock::before,.nav-links-scrolled::before {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #1e6e76;
+  /* visibility: hidden; */
+  /* transform: scaleX(0); */
+  transition: width 0.3s ease-in 0s;
+}
+
+.nav-link-stock::before{
+  background-color: #fff;
+}
+
+.nav-links-scrolled::before{
+  background-color: #1e6e76;
+}
+
+.nav-link:hover::before,.nav-link-stock:hover::before,.nav-links-scrolled:hover::before {
+  /* visibility: visible; */
+  width: 100%;
+  /* transform: scaleX(1); */
 }
 
 /* Media queries - Responsive design */
-@media  (max-width: 875px) {
+@media (max-width: 875px) {
 
-  .navbar{
+  .navbar {
     justify-content: space-around;
-  background-color: #333;
+    background-color: #333;
   }
-  .nav-links{
+
+  .nav-links {
     display: none;
   }
-  .nav-links-mobile{
+
+  .nav-links-mobile {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -156,7 +310,7 @@
     list-style: none;
   }
 
-  .nav-link{
+  .nav-link {
     color: white !important;
     margin: 0 0;
     border-radius: 0;
@@ -171,9 +325,9 @@
   .nav-links-scrolled {
     color: white;
     backdrop-filter: blur(0px);
-}
+  }
 
-  .nav-mobile-menu{
+  .nav-mobile-menu {
     display: block;
   }
 

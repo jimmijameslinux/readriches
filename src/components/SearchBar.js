@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../components/css/SearchBar.css';
 
+import search_icon from '../components/img/search_icon.svg'
+
 const SearchBar = ({ onSearch, onCategoryChange }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -20,11 +22,13 @@ const SearchBar = ({ onSearch, onCategoryChange }) => {
 
   return (
     <div className="search-bar">
+      <img src={search_icon} width='25px' alt='search-icon'/>
       <input
         type="text"
-        placeholder="Search"
+        placeholder="Search By The Company"
         value={searchQuery}
         onChange={handleInputChange}
+        title='Search'
       />
       {/* <button onClick={handleSearchClick}>
         Search

@@ -16,7 +16,22 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# local files
+/src/components/googleauth.txt
+/src/components/client_secret_google.json
+/src/components/uploads
+build.zip
+
+
+# keys
+todo
+todo.pub
+
+
+

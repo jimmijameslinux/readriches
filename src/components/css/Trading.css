@@ -1,9 +1,17 @@
 
 .Tradecontainer{
     display: flex;
-    width: 100vw;
-    justify-content: space-between;
+    width: max-content;
+    gap: 5rem;
+    /* justify-content: space-between; */
+    animation: scroll 1500s linear infinite;
 }
+
+@keyframes scroll{
+    to{
+      transform: translateX(-100%);
+    }
+  }
 
 .Stockele{
     display: flex;

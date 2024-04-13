@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.plans {
+    position: relative;
+    width: 220px;
+    height: 350px;
+    background-color: #1C656D;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    /* animation: expand 0.5s forwards; */
+}
+
+.plans::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: 'BASIC';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    /* width: 100%; */
+    /* height: 100%; */
+    /* color: #000; */
+    /* font-size: 2.5em; */
+    font-weight: 900;
+    background-color: #318c96;
+    font-size: 1.2em;
+    width: 45%;
+    height: 14%;
+    aspect-ratio: 1;
+    margin-left: 20px;
+    margin-top: 20px;
+    /* animation: adjust 0.5s forwards; */
+}
+
+#plan2::after {
+    content: 'PRO';
+}
+
+#plan3::after {
+    content: 'PREMIUM';
+    padding-inline: 10px;
+}
+
+.plans:hover {
+    cursor: pointer;
+}
+
+.plans:hover::after {
+    cursor: pointer;
+}
+
+.plans__content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 30%;
+}
+
+.plans__content span {
+    margin-bottom: 20px;
+}
+
+@keyframes expand {
+    from {
+        height: 200px;
+    }
+
+    to {
+        height: 300px;
+    }
+}
+
+@keyframes adjust {
+    from {
+        font-size: 2.5em;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1;
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    to {
+        font-size: 1.2em;
+        width: 45%;
+        height: 14%;
+        aspect-ratio: 1;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+}

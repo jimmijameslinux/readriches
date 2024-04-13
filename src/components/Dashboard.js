@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import '../components/css/Dashboard.css';
 import logo1 from '../components/img/white_read.png'
 import e from 'cors';
+import { BASE_URL } from './Godurl';
+// import Form from 'react-bootstrap/Form';
+// import { Modal } from 'bootstrap';
+import { useLocation } from 'react-router-dom';
+
 
 
 export default function Dashboard({ carddata, getCarddata, reload, setReload }) {
   const [file1, setFile] = useState();
   const [file2, setFile2] = useState();
+  const [file3, setFile3] = useState();
+  const [uploadProgress, setUploadProgress] = useState("");
+  const location = useLocation();
   const [form, setForm] = useState({});
   const [notification, setNotification] = useState(null);
   const [cardId, setCardId] = useState(null);
@@ -18,6 +26,9 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
     }
     if (e.target.name === "mainimage") {
       setFile2(URL.createObjectURL(e.target.files[0]));
+    }
+    if (e.target.name === "video") {
+      setFile3(URL.createObjectURL(e.target.files[0]));
     }
 
     setForm({
@@ -36,22 +47,29 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
     formData.append('mainimage', e.target.mainimage.files[0]);
     formData.append('first_color', form.first_color);
     formData.append('second_color', form.second_color);
+    formData.append('video', e.target.video.files[0]);
+
+    setUploadProgress("Uploading data....")
 
     try {
-      const response = await fetch("http://localhost:3001/dashboard", {
+      const response = await fetch(`${BASE_URL}/dashboard`, {
         method: "POST",
         body: formData,
       });
-      const data = await response.json();
-      // console.log(data);
 
+      if (!response.ok) {
+        throw new Error('Failed to upload file');
+      }
       setNotification({ type: 'success', message: 'Card Added successfully!' });
       setReload(true);
+      setUploadProgress("");
     } catch (error) {
       console.error('Error submitting form:', error);
       setNotification({ type: 'error', message: 'An error occurred while adding the card.' });
+      setUploadProgress("");
     }
   };
+
 
   useEffect(() => {
     getCarddata();
@@ -66,24 +84,31 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
     if (e.target.logoimage.files[0]) {
       formData.append('logoimage', e.target.logoimage.files[0]);
     }
-  
+
     // Check if the main image is selected and update it
     if (e.target.mainimage.files[0]) {
       formData.append('mainimage', e.target.mainimage.files[0]);
     }
-  
-    // Check if the color1 is different and update it
-  if (form.first_color !== carddata.first_color) {
-    formData.append('first_color', form.first_color);
-  }
 
-  // Check if the color2 is different and update it
-  if (form.second_color !== carddata.second_color) {
-    formData.append('second_color', form.second_color);
-  }
+    // Check if the video is selected and update it
+    if (e.target.video.files[0]) {
+      formData.append('video', e.target.video.files[0]);
+    }
+
+    // Check if the color1 is different and update it
+    if (form.first_color !== carddata.first_color) {
+      formData.append('first_color', form.first_color);
+    }
+
+    // Check if the color2 is different and update it
+    if (form.second_color !== carddata.second_color) {
+      formData.append('second_color', form.second_color);
+    }
+
+    setUploadProgress("Updating data....")
 
     try {
-      const response = await fetch(`http://localhost:3001/dashboard/${cardId}`, {
+      const response = await fetch(`${BASE_URL}/dashboard/${cardId}`, {
         method: "PUT",
         body: formData,
       });
@@ -92,15 +117,26 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
 
       setNotification({ type: 'success', message: 'Card Updated successfully!' });
       setReload(true);
+      setUploadProgress("");
     } catch (error) {
       console.error('Error submitting form:', error);
       setNotification({ type: 'error', message: 'An error occurred while updating the card.' });
+      setUploadProgress("");
     }
   };
 
+  // if notification settimeout to 3 sec
+  useEffect(() => {
+    if (notification) {
+      setTimeout(() => {
+        setNotification(null);
+      }, 3000);
+    }
+  }, [notification]);
+
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container" style={{ color: "#fff", position: "relative" }}>
       <div className="sidebar">
         <div className="logo-container">
           <img className="logo" src={logo1} style={{ width: "100px" }} alt="Readches Logo" />
@@ -108,7 +144,7 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
 
         <span className="logo-text">Admin Panel</span>
 
-        <a className="nav-button" href="#">
+        <a className={`nav-button ${location.pathname === '/dashboard' ? 'active' : ''}`} href="/dashboard">
           <svg width={"1vw"} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="nav-icon" role="img" aria-hidden="true"><path fill="var(--ci-primary-color, currentColor)" d="M425.706,142.294A240,240,0,0,0,16,312v88H160V368H48V312c0-114.691,93.309-208,208-208s208,93.309,208,208v56H352v32H496V312A238.432,238.432,0,0,0,425.706,142.294Z" className="ci-primary"></path><rect width="32" height="32" x="80" y="264" fill="var(--ci-primary-color, currentColor)" className="ci-primary"></rect><rect width="32" height="32" x="240" y="128" fill="var(--ci-primary-color, currentColor)" className="ci-primary"></rect><rect width="32" height="32" x="136" y="168" fill="var(--ci-primary-color, currentColor)" className="ci-primary"></rect><rect width="32" height="32" x="400" y="264" fill="var(--ci-primary-color, currentColor)" className="ci-primary"></rect><path fill="var(--ci-primary-color, currentColor)" d="M297.222,335.1l69.2-144.173-28.85-13.848L268.389,321.214A64.141,64.141,0,1,0,297.222,335.1ZM256,416a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,416Z" className="ci-primary"></path></svg>
           Dashboard
         </a>
@@ -125,7 +161,7 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
       </div>
 
       <main className="main-page">
-        <div className='everything' >
+        <div className='everything' style={{ color: "black" }}>
           <h1>Dashboard</h1>
           <button className="btn btn-add" onClick={() => {
             document.querySelector(".case-study-container").style.display = "block";
@@ -148,53 +184,74 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
               <span>Action</span>
             </div>
             {carddata.map((card, index) => (
-              <div className="dashboard_card" style={{paddingBlock:"0.5rem"}} key={index}>
+              <div className="dashboard_card" style={{ paddingBlock: "0.5rem" }} key={index}>
                 <span>{index + 1}</span>
-                <img src={`http://localhost:3001/${card.logoimage}`} width={"75px"} alt="logo" />
-                <img src={`http://localhost:3001/${card.mainimage}`} width={"75px"} alt="main" />
+                <img src={`${card.logoimage}`} width={"75px"} alt="logo" />
+                <img src={`${card.mainimage}`} width={"75px"} alt="main" />
                 <span>{card.company_name}</span>
                 <span>{card.title}</span>
                 <span>{card.category}</span>
 
-                <div className='actions' style={{display:"flex",flexDirection:"column",rowGap:"0.5rem"}}>
-                <button className="btn btn-delete"
-                  onClick={async () => {
-                    try {
-                      const response = await fetch(`http://localhost:3001/dashboard/${card._id}`, {
-                        method: "DELETE",
+                <div className='actions' style={{ display: "flex", flexDirection: "column", rowGap: "0.5rem" }}>
+                  <button className="btn btn-delete"
+                    onClick={() => {
+                      document.querySelector("#deleteModal").style.display = "flex";
+                    }}
+                  >Delete
+                  </button>
+                  <button
+                    className="btn btn-update"
+                    onClick={() => {
+                      document.querySelector(".case-study-container.update").style.display = "block";
+                      document.querySelector(".everything").style.display = "none";
+                      setForm({}); // Clear the form when opening the update form
+                      setCardId(carddata[index]._id);
+                      setForm({
+                        company_name: carddata[index].company_name,
+                        title: carddata[index].title,
+                        category: carddata[index].category,
+                        first_color: carddata[index].first_color,
+                        second_color: carddata[index].second_color,
+                        logoimage: carddata[index].logoimage,
+                        mainimage: carddata[index].mainimage,
                       });
-                      const data = await response.json();
-                      // console.log(data);
-                      getCarddata();
-                    } catch (error) {
-                      console.error('Error deleting card:', error);
-                    }
-                  }}
-                  >Delete</button>
-                <button
-                  className="btn btn-update"
-                  onClick={() => {
-                    document.querySelector(".case-study-container.update").style.display = "block";
-                    document.querySelector(".everything").style.display = "none";
-                    setForm({}); // Clear the form when opening the update form
-                    setCardId(carddata[index]._id);
-                    setForm({
-                      company_name: carddata[index].company_name,
-                      title: carddata[index].title,
-                      category: carddata[index].category,
-                      first_color: carddata[index].first_color,
-                      second_color: carddata[index].second_color,
-                      logoimage: carddata[index].logoimage,
-                      mainimage: carddata[index].mainimage,
-                    });
-                  }}
+                    }}
                   >
-                  Update
-                </button>
+                    Update
+                  </button>
+                  {/* delete modal */}
+                  <div className="modal" id="deleteModal" style={{ display: "none" }}>
+                    <div className="modal-content" style={{ position: "relative" }}>
+                      <span className="close" style={{ cursor: "pointer" }} onClick={() => {
+                        document.querySelector("#deleteModal").style.display = "none";
+                      }}>&times;</span>
+                      <h2>Are you sure you want to delete this card?</h2>
+                      <div style={{ width: "100%", display: "flex", justifyContent: "space-around" }}>
+                        <button className="btn btn-delete" onClick={async () => {
+                          setUploadProgress("Deleting data....");
+                          try {
+                            const response = await fetch(`${BASE_URL}/dashboard/${card._id}`, {
+                              method: "DELETE",
+                            });
+                            const data = await response.json();
+                            // console.log(data);
+                            getCarddata();
+                            setUploadProgress("");
+                          } catch (error) {
+                            console.error('Error deleting card:', error);
+                          }
+                        }}>Delete</button>
+                        <button className="btn btn-close" onClick={() => {
+                          document.querySelector("#deleteModal").style.display = "none";
+                        }}>Close</button>
+                      </div>
+                    </div>
                   </div>
+                </div>
 
               </div>
-            ))}
+            ))
+            }
           </div>
         </div>
 
@@ -247,6 +304,13 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
               <img src={file2} width={file2 && 150} height={file2 && 100} />
             </div>
 
+            {/* video */}
+            <div className="form-group">
+              <label htmlFor="video">Case Study Video:</label>
+              <input type="file" id="video" name="video" accept="video/*" onChange={handleChange} required />
+              <video src={file3} width={file3 ? 150 : 0} height={file3 ? 100 : 0} />
+            </div>
+
             <div className="form-group">
               <label htmlFor="color1">gradient colour 1:</label>
               <input type="color" id="color1" name="first_color" value={form.first_color || "#eeeeee"} onChange={handleChange} required />
@@ -257,7 +321,16 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
               <input type="color" id="color2" name="second_color" value={form.second_color || "#ffffff"} onChange={handleChange} required />
             </div>
 
-            <button type="submit">Submit</button>
+            <span style={{ fontSize: "2rem" }}>
+              {uploadProgress}
+            </span>
+
+
+
+            <div style={{ display: "flex", position: "absolute", bottom: "-5rem", width: "100%", justifyContent: "center" }}>
+              <button type="submit" style={{ width: "30%", paddingBlock: "1rem" }}>Submit</button>
+
+            </div>
           </form>
         </div>
 
@@ -325,6 +398,7 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
                 id="logoImage"
                 name="logoimage"
                 accept="image/*"
+                // value={e.target.logoimage.files[0] || ''}
                 onChange={handleChange}
               />
             </div>
@@ -336,6 +410,20 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
                 id="mainImage"
                 name="mainimage"
                 accept="image/*"
+                // value={e.target.mainimage.files[0] || ''}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Video */}
+            <div className="form-group">
+              <label htmlFor="video">Card Video:</label>
+              <input
+                type="file"
+                id="video"
+                name="video"
+                accept="video/*"
+                // value={e.target.video.files[0] || ''}
                 onChange={handleChange}
               />
             </div>
@@ -362,13 +450,29 @@ export default function Dashboard({ carddata, getCarddata, reload, setReload }) 
               />
             </div>
 
-            <button type="submit">Submit</button>
+            <div style={{ display: "flex", position: "absolute", bottom: "-5rem", width: "100%", justifyContent: "center" }}>
+              <button type="submit" style={{ width: "30%", paddingBlock: "1rem" }}>Submit</button>
+
+            </div>
           </form>
 
         </div>
 
-        
+
       </main>
+      {
+
+        uploadProgress &&
+
+        <div className='carduploadingprogress'>
+          <h1>{uploadProgress}</h1>
+          {/* please dont refresh or go back or close the window */}
+          <h3>please don't refresh or go back or close the window</h3>
+          <span className="loader"></span>
+        </div>
+      }
+
+
     </div>
   );
 }
