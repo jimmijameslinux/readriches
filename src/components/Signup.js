@@ -1,17 +1,21 @@
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import "../components/css/Signup.css"
+// import { useHistory } from 'react-router-dom';
 // use nodemailer
 
 export default function Signup() {
   
   const [SignupStatus, setSignupStatus] = useState({ success: null, message: '' });
+  const [gotp, setGotp] = useState(''); 
   const Redirecting = () => {
     // const location = useLocation();
     // const redirect_uri = "/login";
     const redirect_uri = "/otp";
     window.location.href = `${redirect_uri}`
   }
+
+  // const history = useHistory();
 
   const navigate = useNavigate();
   const HandleSignup = async (e) => {
@@ -33,7 +37,13 @@ export default function Signup() {
         if (response.ok) {
           const data = await response.json();
           // Assuming the server returns a success message or token, you can redirect here
-          Redirecting();
+          // Redirecting();
+        setGotp(data.gotp);
+          if(response.status === 200)
+          {
+            navigate('/otp', { state: { gotp: data.gotp } });
+          }
+          
           setSignupStatus({ success: true, message: 'Signup successful!' });
         }
          else {
@@ -60,7 +70,7 @@ export default function Signup() {
       setSignupStatus({ success: false, message: 'Passwords do not match' });
     }
     // navigate('/otp');
-    Redirecting();
+    // Redirecting();
   };
 
   return (

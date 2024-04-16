@@ -1,8 +1,17 @@
 import React, { useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 function OTPInput() {
   const [otp, setOTP] = useState(['', '', '', '', '', '']); // Array to store each digit
   const inputRefs = useRef([]);
+  const location = useLocation();
+  const { gotp } = location.state;  // Array to store each digit
+  const navigate = useNavigate();
+
+  // console.log('Got OTP:', gotp);  
+
 
   const handleChange = (e, index) => {
     const { value } = e.target;
@@ -25,29 +34,24 @@ function OTPInput() {
   const handleConfirmOTP = () => {
     // Concatenate the OTP digits to form the OTP string
     const enteredOTP = otp.join('');
-    console.log('Entered OTP:', enteredOTP);
-
+    // console.log('Entered OTP:', enteredOTP);
+    // console.log('Got OTP:', gotp);  
     // Send the OTP data to the server
     fetch('http://localhost:3001/otpverify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ otp: enteredOTP }),
+      body: JSON.stringify({gotp,enteredOTP}),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        console.log('Response from server:', data);
-        // Handle the response from the server as needed
+        // console.log('Success:', data);
+        navigate('/login');
+        
       })
       .catch((error) => {
-        console.error('There was a problem with the fetch operation:', error);
-        // Handle errors from fetch operation
+        console.error('Error:', error);
       });
   };
 
