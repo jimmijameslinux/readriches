@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.upipay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    gap: 60px;
+    /* margin-top: 50px;
+    margin-bottom: 50px; */
+}
+
+
+.upipayheading {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 16px;
+    width: 470px;
+    position: relative;
+    left: -180px;
+}
+
+.upipayheading p {
+    text-align: left;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #666666;
+}
+
+.upipayheading p:nth-child(3) {
+    color: #1A1A1A;
+    width: 229px;
+}
+
+.upipayheading h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 100;
+}
+
+.setupi,
+.upiid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 841px;
+    height: 95px;
+    border-radius: 12px;
+    background-color: #F4F4F4;
+    padding-block: 16px;
+    padding-left: 24px;
+    padding-right: 97px;
+    border: none;
+    /* gap: 20px; */
+}
+
+.upiid:focus {
+    outline: 2px solid #1E6E76;
+}
+
+.setupi>div {
+    display: flex;
+    width: 361px;
+    /* justify-content: space-between; */
+    gap: 20px;
+    align-items: center;
+}
+
+.setupi>div div {
+    display: flex;
+    width: 70px;
+    justify-content: space-around;
+}
+
+.upiid>div {
+    display: flex;
+    width: 361px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upiid>div div {
+    display: flex;
+    width: 249px;
+    justify-content: space-between;
+}
+
+.setupi>div>p,
+.upiid>div>p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #666666;
+}
+
+.upibtn {
+    align-items: center;
+    background-color: #427A7A;
+    border-radius: 10px;
+    display: inline-flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 13px 60px;
+    position: relative;
+    border: none;
+    color: #fff;
+    font-family: "Roboto Serif-Bold", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    line-height: 22.4px;
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 60px;
+}

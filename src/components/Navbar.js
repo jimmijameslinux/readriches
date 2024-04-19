@@ -91,7 +91,7 @@ const Navbar = ({loginStatus,setLoginStatus,name,setName,picture,setPicture,newn
   // console.log(newname)
   return (
   <>
-    <nav className={`navbar ${scrolling ? 'navbar-scrolled' : ''} ${location.pathname.startsWith('/home/card/') ? 'nonavbar' : ''} ${location.pathname === '/membershipcard' ? 'navbar_top' : ''} ${location.pathname === '/userprofile' ? 'navbar_top' : ''} ${location.pathname !== '/login' ? 'navbar-white' : ''} ${location.pathname === '/dashboard' ? 'navbar_dash' : ''} ${location.pathname==='/about'?'navbar_top':''}  ${location.pathname==='/login'?'navbar_top':''} ${location.pathname==='/signup'?'navbar_top':''} ${location.pathname==='/userdashboard'?'navbar_top':''} ${location.pathname==='/pricing'?'navbar_top':''} ${location.pathname === '/otp' ? 'nonavbar' : ''}`}>
+    <nav className={`navbar ${scrolling ? 'navbar-scrolled' : ''} ${location.pathname.startsWith('/home/card/') ? 'nonavbar' : ''} ${location.pathname === '/membershipcard' ? 'navbar_top' : ''} ${location.pathname === '/userprofile' ? 'navbar_top' : ''} ${location.pathname !== '/login' ? 'navbar-white' : ''} ${location.pathname === '/dashboard' ? 'navbar_dash' : ''} ${location.pathname==='/about'?'navbar_top':''}  ${location.pathname==='/login' || location.pathname==='/forgotpass' || location.pathname==='/newpass' || location.pathname==='/signup'?'nonavbar':''} ${location.pathname==='/signup'?'navbar_top':''} ${location.pathname==='/userdashboard'?'navbar_top':''} ${location.pathname==='/pricing'?'navbar_top':''} ${location.pathname === '/otp' ? 'nonavbar' : ''}`}>
 
       <Logo scrolling={scrolling} />
       <ul className="nav-links-mobile">

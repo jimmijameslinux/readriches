@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.creditdebitpay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    gap: 60px;
+    /* width: 746px; */
+    /* margin-top: 50px;
+    margin-bottom: 50px; */
+}
+
+
+.creditdebitpayheading {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 16px;
+    width: 657px;
+    position: relative;
+    left: -90px;
+}
+
+.creditdebitpay form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.creditdebitpay form input::placeholder {
+    color: #666666;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+  }
+
+.creditdebitpayheading h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 100;
+}
+
+.creditdebitid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 841px;
+    height: 95px;
+    /* border-radius: 12px; */
+    background-color: #F4F4F4;
+    padding-block: 16px;
+    padding-left: 24px;
+    padding-right: 97px;
+    border: none;
+    /* gap: 20px; */
+}
+
+.creditdebitid:focus {
+    outline: 2px solid #1E6E76;
+}
+
+.creditdebitid>div {
+    display: flex;
+    width: 361px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.creditdebitbtn {
+    align-items: center;
+    background-color: #427A7A;
+    border-radius: 10px;
+    display: inline-flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 13px 60px;
+    position: relative;
+    border: none;
+    color: #fff;
+    font-family: "Roboto Serif-Bold", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    line-height: 22.4px;
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+    width: 55%;
+    margin-top: 60px;
+}

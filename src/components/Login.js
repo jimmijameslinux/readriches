@@ -3,6 +3,7 @@ import "../components/css/Login.css"
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import { ProgressContext } from '../App';
+import loginsvg from '../components/img/loginsvg.svg';
 // import { set } from 'mongoose';
 
 
@@ -70,7 +71,14 @@ export default function Login({ loginStatus, setLoginStatus, setEmail, setName, 
   };
 
 
+// password
+const [password, setPassword] = useState('');
 
+  const handlePasswordChange = (event) => {
+    const value = event.target.value;
+    setPassword(value);
+    event.target.value = '*'.repeat(value.length); // Mask the input value
+  };
 
   // /////
   const HandleLogin = async (e) => {
@@ -196,25 +204,49 @@ export default function Login({ loginStatus, setLoginStatus, setEmail, setName, 
 
   return (
     <main className='loginmain'>
-      <div style={{ width: "30%", position: "relative" }}>
-        <h1>Login</h1>
-
+      <div className='loginleftimg'>
+        <img src={loginsvg} alt="login" />
+      </div>
+      <div className='loginright'>
+        <h1>Nice to see you again</h1>
         {/* login and signup */}
         <form className="form" onSubmit={HandleLogin}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Enter Email" required />
+            <label htmlFor="email">Email Or Phone Number</label>
+            <input type="email" id="email" placeholder="Enter Email Or Phone Number" required />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" placeholder="Enter Password" required />
+            <input type="password"
+             id="password"
+            //  name="password"
+            //  value={password}
+            //  onChange={handlePasswordChange}
+             placeholder="Enter Password"
+              required />
           </div>
-          <button type="submit" className="btn">Login</button>
-          <p>Don't have an account? <u onClick={() => {
-            navigate('/signup');
-          }} style={{ textDecoration: "underline", color: "purple", cursor: "pointer" }}>Sign Up</u></p>
+          <div className="form-group" style={{flexDirection:"row",justifyContent:"space-between"}}>
+            <div style={{display:"flex",alignItems:"center",gap:"5px"}}>
+            <label id='remember' htmlFor="remember-me">Remember Me</label>
+            <input style={{marginBottom:0}} type="checkbox" id="remember-me" />
+            </div>
+            <div>
+              <a href="/forgotpass" style={{ color: "#007AFF",textDecoration:"none" }}>Forgot Password?</a>
+            </div>
+          </div>
+          {/* or */}
+          <div className="or">
+            <hr />
+            <span>Or</span>
+            <hr />
+          </div>
+          <button type="submit" className="lbtn">Sign In</button>
           {/* login as google btn */}
-          <div id="google-login-button" style={{ marginTop: "1rem" }}></div>
+          <div id="google-login-button" style={{ marginTop: "40px" }}></div>
+
+          <p style={{display:"flex",justifyContent:"center",gap:"10px", marginTop: "16px"}}>Don't have an account? <u onClick={() => {
+            navigate('/signup');
+          }} style={{ color: "#007AFF",textDecoration:"none", cursor: "pointer" }}>Sign Up</u></p>
           {/* login status */}
           {loginStatus.success !== null && (
             <div className={loginStatus.success ? '' : 'error'}>

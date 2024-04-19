@@ -7,7 +7,7 @@ import twitternew from '../components/img/twitternew.png'
 const Footer = () => {
   const location = useLocation();
   return (
-    <footer className={`footer ${location.pathname === '/contact' ? 'footer_contact' :''} ${location.pathname==='/dashboard'?'footer_dash':''}  ${location.pathname==='/userdashboard'  ?'footer_fixed':''}  ${location.pathname==='/userprofile'  ?'footer_fixed':''} ${location.pathname=== '/home/card/'?'footer_dash':''} ${location.pathname==='/otp'?'footer_dash':'' } ${location.pathname.startsWith('/home/card') ? 'footer_dash' :''}`}>
+    <footer className={`footer ${location.pathname === '/contact' ? 'footer_contact' :''} ${location.pathname==='/dashboard'?'footer_dash':''} ${location.pathname==='/login' || location.pathname==='/forgotpass'||location.pathname==='/newpass'|| location.pathname==='/signup'?'footer_dash':''}  ${location.pathname==='/userdashboard'  ?'footer_fixed':''}  ${location.pathname==='/userprofile'  ?'footer_fixed':''} ${location.pathname=== '/home/card/'?'footer_dash':''} ${location.pathname==='/otp'?'footer_dash':'' } ${location.pathname.startsWith('/home/card') ? 'footer_dash' :''}`}>
       <div className="footer-content">
 
         <div className="footer-section about">

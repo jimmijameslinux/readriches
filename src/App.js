@@ -17,6 +17,11 @@ import Billing from './components/Billing';
 import OtpVerification from './components/OtpVerification';
 import Userprofile from './components/Userprofile';
 import AdminLogin from './components/AdminLogin';
+import ForgotPass from './components/ForgotPass';
+import { NewPass } from './components/NewPass';
+import { Howtopay } from './components/Howtopay';
+import { Upipay } from './components/Upipay';
+import { CreditDebit } from './components/CreditDebit';
 // index.js or App.js
 
 // Create a context
@@ -185,6 +190,8 @@ const App = () => {
         <Routes> {/* Wrap your routes in the Routes component */}
           {/* initial route to login */}
           <Route path="/login" element={<Login loginStatus={loginStatus} setLoginStatus={setLoginStatus} setEmail={setEmail} setName={setName} setPicture={setPicture} email={email} picture={picture} name={name} setImpcardid={setImpcardid} />} />
+          <Route path="/forgotpass" element={<ForgotPass />} />
+          <Route path="/newpass" element={<NewPass />} />
           <Route path="/signup" element={<Signup />} />
           {loginStatus.success !== false && <Route path="/" element={<Main getCarddata={getCarddata} carddata={carddata} reload={reload} setReload={setReload} loading={loading} loginStatus={loginStatus} setCardvideo={setCardvideo} userid={userid} />} />}
           {/* <Route path="/home"  element={<Main getCarddata={getCarddata} carddata={carddata} reload={reload} setReload={setReload}/>} /> Define a route for the Main component */}
@@ -199,6 +206,9 @@ const App = () => {
           <Route path="/home/card/:id" element={<CardContent cardvideo={cardvideo} loginStatus={loginStatus} userid={userid} />} />
           <Route path="/userdashboard" element={<Userdashboard loginStatus={loginStatus} carddata={carddata} userid={userid} />} />
           <Route path="/pricing" element={<Billing userid={userid} />} />
+          <Route path="/howtopay" element={<Howtopay />} />
+          <Route path="/upipay" element={<Upipay />} />
+          <Route path="/creditdebit" element={<CreditDebit />} />
           <Route path="/otp" element={<OtpVerification />} />
           <Route path="/admin" element={<AdminLogin />} />
           {/* wrong path 404 */}

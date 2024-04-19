@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import '../components/css/Billing.css';
 import axios from "axios";
 import finallogo from '../components/img/finallogo.png';
+import memtick from '../components/img/memtick.svg';
 import { ProgressContext } from '../App';
 
 const Billing = ({ userid }) => {
@@ -26,13 +27,13 @@ const Billing = ({ userid }) => {
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     function loadScript(src) {
@@ -51,20 +52,34 @@ const Billing = ({ userid }) => {
 
     async function displayRazorpay(billvalue) {
         setMembershipsubscription(true);
-        const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+        try {
+            const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
-        if (!res) {
-            alert("Razorpay SDK failed to load. Are you online?");
-            return;
+            if (!res) {
+                alert("Razorpay SDK failed to load. Are you online?");
+                return;
+            }
+        } catch (err) {
+            alert(err);
         }
+        // const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
-        const result = await axios.post("http://localhost:3001/orders", {
-            amount: billvalue,
-        });
+        // if (!res) {
+        //     alert("Razorpay SDK failed to load. Are you online?");
+        //     return;
+        // }
+        let result = null;
+        try {
+            result = await axios.post("http://localhost:3001/orders", {
+                amount: billvalue,
+            });
 
-        if (!result) {
-            alert("Server error. Are you online?");
-            return;
+            if (!result) {
+                alert("Server error. Are you online?");
+                return;
+            }
+        } catch (err) {
+            alert(err);
         }
 
         const { amount, id: order_id, currency } = result.data;
@@ -101,9 +116,14 @@ const Billing = ({ userid }) => {
                 color: "#61dafb",
             },
         };
+        try {
+            const paymentObject = new window.Razorpay(options);
 
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
+            paymentObject.open();
+        }
+        catch (err) {
+            alert(err);
+        }
     }
 
     const formatDate = (timestamp) => {
@@ -137,32 +157,200 @@ const Billing = ({ userid }) => {
     };
 
     return (
-        <div className="container">
-            <div className="plans" onClick={() => { handlePlanSelection(billvalue1); displayRazorpay(billvalue1); }}>
-                <div className="plans__content">
-                    <h1>Rs.{billvalue1}</h1>
-                    <span>title</span>
-                    <p>✔lorem ipsum dolor sit</p>
-                    <p>✔lorem ipsum dolor sit</p>
-                    <p>✔lorem ipsum dolor sit</p>
+        <div className="bcontainer">
+            <main>
+                <div style={{ width: "473px" }}>
+                    <h1>Best plan for business</h1>
+                    <p>cost effective,full security,High security</p>
                 </div>
-            </div>
-            <div className="plans" id="plan2" onClick={() =>{ handlePlanSelection(billvalue2); displayRazorpay(billvalue2); }}>
-                <div className="plans__content">
-                    <h1>Rs.{billvalue2}</h1>
-                    <span>title</span>
-                    <p>✔lorem ipsum dolor sit</p>
-                    <p>✔lorem ipsum dolor sit</p>
-                    <p>✔lorem ipsum dolor sit</p>
+            </main>
+            <div className="plans__header">
+                <div className="plans"
+                    id='plans1'
+                // onClick={() => { handlePlanSelection(billvalue1); displayRazorpay(billvalue1); }}
+                >
+                    {/* <div className="plans__content"> */}
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "10px",
+                        backgroundColor: "#E6E6E6",
+                        width: "100%"
+                    }}>
+                        <span className='exp'>EXPERTISE</span>
+                    </div>
+                    <div className='pricerelated'>
+                        <span>PRO</span>
+                        <p>
+                            <span>
+                                ${billvalue1}
+                            </span>
+                            <span>
+                                PER MONTH
+                            </span>
+                        </p>
+                    </div>
+                    <div className='subfeature'>
+                        <p>
+                            <ul className='ulfeature'>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div style={{
+                        marginInline: "20px",
+                        paddingBlock: "10px",
+                        marginBottom: "20px"
+                    }}>
+                        <a href="/howtopay" className="lbtn">Choose Plan</a>
+                    </div>
+                    {/* </div> */}
                 </div>
-            </div>
-            <div className="plans" id="plan3" onClick={() => { handlePlanSelection(billvalue3); displayRazorpay(billvalue3); }}>
-                <div className="plans__content">
-                    <h1>Rs.{billvalue3}</h1>
-                    <span>title</span>
-                    <p>✔lorem ipsum dolor sit</p>
-                    <p>✔lorem ipsum dolor sit</p>
-                    <p>✔lorem ipsum dolor sit</p>
+                <div className="plans"
+                    id='plans2'
+                // onClick={() => { handlePlanSelection(billvalue2); displayRazorpay(billvalue2); }}
+                >
+                    {/* <div className="plans__content"> */}
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "10px",
+                        backgroundColor: "#1D666D",
+                        width: "100%"
+                    }}>
+                        <span className='exp' style={{color:"#ffffff"}}>MOST POPULAR</span>
+                    </div>
+                    <div className='pricerelated'>
+                        <span>PRO</span>
+                        <p>
+                            <span>
+                                ${billvalue2}
+                            </span>
+                            <span>
+                                PER MONTH
+                            </span>
+                        </p>
+                    </div>
+                    <div className='subfeature'>
+                        <p>
+                            <ul className='ulfeature'>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div style={{
+                        marginInline: "20px",
+                        paddingBlock: "10px",
+                        marginBottom: "20px"
+                    }}>
+                        <a href="/howtopay" className="lbtn" style={{backgroundColor:"#1D666D"}}>Choose Plan</a>
+                    </div>
+                    {/* </div> */}
+                </div>
+                <div className="plans"
+                    id='plans3'
+
+                // onClick={() => { handlePlanSelection(billvalue3); displayRazorpay(billvalue3); }}
+                >
+                    {/* <div className="plans__content"> */}
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "10px",
+                        backgroundColor: "#E6E6E6",
+                        width: "100%"
+                    }}>
+                        <span className='exp'>EXPERTISE</span>
+                    </div>
+                    <div className='pricerelated'>
+                        <span>PRO</span>
+                        <p>
+                            <span>
+                                ${billvalue3}
+                            </span>
+                            <span>
+                                PER MONTH
+                            </span>
+                        </p>
+                    </div>
+                    <div className='subfeature'>
+                        <p>
+                            <ul className='ulfeature'>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                                <li>
+                                    <img src={memtick} alt="tick" />
+                                    <span>lorem ipsum dolor sit</span>
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div style={{
+                        marginInline: "20px",
+                        paddingBlock: "10px",
+                        marginBottom: "20px"
+                    }}>
+                        <a href="/howtopay" className="lbtn">Choose Plan</a>
+                    </div>
+                    {/* </div> */}
                 </div>
             </div>
         </div>
